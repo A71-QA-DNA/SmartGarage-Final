@@ -10,6 +10,7 @@
 .idea/**/shelf
 .allure
 .mvn
+/target
 
 # AWS User-specific
 .idea/**/aws.xml
