@@ -1,0 +1,15 @@
+com/testframework/DriverManager.class
+com/testframework/core/BaseApiTest.class
+com/testframework/core/BaseWebTest.class
+com/testframework/enums/BrowserMode.class
+com/testframework/PropertiesManager.class
+com/smartgarage/api/models/CustomerRequest$CustomerRequestBuilder.class
+com/testframework/DriverManager$1.class
+com/testframework/core/BaseApiService.class
+com/testframework/Driver.class
+com/testframework/enums/FrameworkSettings.class
+com/testframework/core/RequestSpecFactory.class
+com/smartgarage/api/UsersApi.class
+com/smartgarage/api/models/CustomerRequest.class
+com/testframework/core/BaseWebPage.class
+com/testframework/enums/BrowserType.class
