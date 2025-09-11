@@ -26,7 +26,7 @@ public class UsersAPITests extends BaseApiTest {
         String phoneNumber = faker.number().digits(10);
 
         return Users.builder()
-                .username(username)
+                .userName(username)
                 .email(email)
                 .phoneNumber(phoneNumber)
                 .firstName(faker.name().firstName())
@@ -48,7 +48,7 @@ public class UsersAPITests extends BaseApiTest {
         Users users = validCustomer();
         Users res = api.createCustomerAndExtract(users);
 
-        assertEquals(users.getUsername(), res.getUsername(), "Username must match");
+        assertEquals(users.getUserName(), res.getUserName(), "Username must match");
         assertEquals(users.getEmail(), res.getEmail(), "Email must match");
         assertEquals(users.getPhoneNumber(), res.getPhoneNumber(), "Phone number must match");
     }
@@ -56,7 +56,7 @@ public class UsersAPITests extends BaseApiTest {
     @Test
     public void createCustomer_withInvalidUsername_returns400() {
         Users usersRequest = validCustomer();
-        usersRequest.setUsername("a");
+        usersRequest.setUserName("a");
 
         Response response = api.createCustomer(usersRequest);
 
@@ -67,7 +67,7 @@ public class UsersAPITests extends BaseApiTest {
     public void creatCustomer_WithExistingUsername_returns500() {
         Users users = api.createCustomerAndExtract(validCustomer());
         Users duplicate = validCustomer();
-        duplicate.setUsername(users.getUsername());
+        duplicate.setUserName(users.getUserName());
         Response response = api.createCustomer(duplicate);
         assertEquals(500, response.statusCode(), "Duplicate username should return 500");
     }
