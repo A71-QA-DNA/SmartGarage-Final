@@ -6,6 +6,7 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -28,6 +29,30 @@ public abstract class BaseApiService {
 
     protected void setRequestSpecification(RequestSpecification req) {
         requestSpecification = req;
+    }
+
+    protected <T> T postAndExtract(String path, Object body, int expectedStatus, Class<T> type) {
+        return request()
+                .body(body)
+                .when()
+                .post(path)
+                .then()
+                .statusCode(expectedStatus)
+                .extract()
+                .as(type);
+    }
+
+    protected Response post(String path, Object body) {
+        return request()
+                .body(body)
+                .when()
+                .post(path);
+    }
+
+    protected Response delete(String path) {
+        return request()
+                .when()
+                .delete(path);
     }
 
     @BeforeAll
