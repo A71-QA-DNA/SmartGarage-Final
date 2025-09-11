@@ -70,7 +70,7 @@ public class ServiceApiTest extends BaseApiTest {
     @Test
     @Story("Create Service with invalid price")
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("POST with negative price → 400")
+    @DisplayName("Create service with negative price → 400")
     void createService_withNegativePrice_shouldFail() {
         ServiceRequest req = ServiceRequest.builder()
                 .name(faker.commerce().productName())
@@ -84,7 +84,7 @@ public class ServiceApiTest extends BaseApiTest {
     @Test
     @Story("Update Service")
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("PUT updates price")
+    @DisplayName("Update service updates price")
     void updateServicePrice() {
         ServiceResponse createdService = createService(100);
         ensureBaseService(createdService.getId());
@@ -103,7 +103,7 @@ public class ServiceApiTest extends BaseApiTest {
     @Test
     @Story("Delete Service")
     @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("DELETE /api/services/{id}")
+    @DisplayName("DELETE service by id")
     public void deleteService() {
         ServiceResponse created = createService(50);
 
