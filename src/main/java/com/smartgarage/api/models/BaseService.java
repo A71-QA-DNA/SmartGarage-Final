@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Services {
+@Builder
+public class BaseService {
+    private Integer id;
     private String name;
-    private String price;
 }
