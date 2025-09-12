@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateCustomerTests {
-
     private final CustomerApi customerApi = new CustomerApi();
     private final Faker faker = new Faker();
 
@@ -65,7 +64,6 @@ public class CreateCustomerTests {
                 customerPassword,
                 updatedCustomer
         );
-
         assertEquals(200, updateResponse.getStatusCode(), "Phone number was not updated.");
     }
 
