@@ -66,5 +66,4 @@ public class EmployeesSearchTests {
         assertNotNull(fetchPhone, "Customer not found by Phone number after creation.");
         assertEquals(originalCustomer.getPhoneNumber(), fetchPhone.getPhoneNumber(), "Customer email does not match");
     }
-
 }
