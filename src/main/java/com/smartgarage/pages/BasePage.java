@@ -19,7 +19,7 @@ public abstract class BasePage {
     }
 
     protected void waitForPageToLoad() {
-        webDriverWait.until(ExpectedConditions.visibilityOf());
+        webDriverWait.until(ExpectedConditions.visibilityOf(mainHeading()));
     }
 
     protected abstract String getUrl();
