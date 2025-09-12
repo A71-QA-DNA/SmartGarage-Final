@@ -50,6 +50,39 @@ public class CustomerApi extends BaseApiService {
         return results[0];
     }
 
+    public Users findUserByEmail(String email) {
+        Users[] results = request()
+                .queryParam("email", email)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Users[].class);
+
+        if (results == null || results.length == 0) {
+            return null;
+        }
+        return results[0];
+    }
+
+    public Users findUserByPhone(String phone) {
+        Users[] results = request()
+                .queryParam("phoneNumber", phone)
+                .when()
+                .get()
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Users[].class);
+
+        if (results == null || results.length == 0) {
+            return null;
+        }
+        return results[0];
+    }
+
+
     public Response userSelfUpdate(int userId, String username, String password, Users body) {
         return request()
                 .auth().preemptive().basic(username, password)
