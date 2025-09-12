@@ -3,6 +3,7 @@ package api.users;
 import com.github.javafaker.Faker;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Epic("Service API")
+@Feature("Employee Search– username/email/phone/VIN/license plate")
 public class EmployeesSearchTests {
     private final CustomerApi customerApi = new CustomerApi();
     private final Faker faker = new Faker();
@@ -37,13 +40,14 @@ public class EmployeesSearchTests {
 
     @AfterEach
     void teardownTestUser() {
-
         if (customerId != null) {
             customerApi.deleteUser(customerId);
         }
     }
 
     @Test
+    @Story("Search User by Username")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Admin should Find Customer by Username")
     void userFoundSuccessfully_when_adminSearchesByUsername() {
         assertNotNull(customerUserName, "Customer not found by Username after creation.");
@@ -51,16 +55,19 @@ public class EmployeesSearchTests {
     }
 
     @Test
+    @Story("Search User by Email")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Admin should Find Customer by Email")
     void userFoundSuccessfully_when_adminSearchesByEmail() {
         Users fetchEmail = customerApi.findUserByEmail(originalCustomer.getEmail());
         assertNotNull(fetchEmail, "Customer not found by Email after creation.");
         assertEquals(originalCustomer.getUserName(), fetchEmail.getUserName(), "Customer email does not match");
-
     }
 
     @Test
-    @DisplayName("Admin shoudl find customer by Phone")
+    @Story("Search User by Phone")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Admin should find customer by Phone")
     void userFoundSuccessfully_when_adminSearchesByPhoneNumber() {
         Users fetchPhone = customerApi.findUserByPhone(originalCustomer.getPhoneNumber());
         assertNotNull(fetchPhone, "Customer not found by Phone number after creation.");

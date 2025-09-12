@@ -82,7 +82,6 @@ public class CustomerApi extends BaseApiService {
         return results[0];
     }
 
-
     public Response userSelfUpdate(int userId, String username, String password, Users body) {
         return request()
                 .auth().preemptive().basic(username, password)
