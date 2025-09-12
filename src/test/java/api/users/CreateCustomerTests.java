@@ -1,122 +1,82 @@
 package api.users;
 
 import com.github.javafaker.Faker;
+import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
-import com.testframework.PropertiesManager;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 
-import static io.restassured.filter.log.LogDetail.ALL;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateCustomerTests {
-    private static Faker faker;
-    private Users originalUser;
-    private Integer userId;
-    private String userPassword;
 
-    private static String adminUser;
-    private static String adminPass;
+    private final CustomerApi customerApi = new CustomerApi();
+    private final Faker faker = new Faker();
 
-    @BeforeAll
-    public static void setup() {
-        RestAssured.baseURI = "http://localhost:8081";
-        faker = new Faker();
-        adminUser = PropertiesManager.getConfigProperties().getProperty("adminUsername");
-        adminPass = PropertiesManager.getConfigProperties().getProperty("adminPassword");
-    }
+    private Users originalCustomer;
+    private Integer customerId;
+    private String customerPassword;
 
     @BeforeEach
     public void setupTestUser() {
-        originalUser = new Users();
-        originalUser.setUserName(faker.name().username());
-        originalUser.setEmail(faker.internet().emailAddress());
-        originalUser.setPhoneNumber(faker.number().digits(10));
-        originalUser.setFirstName(faker.name().firstName());
-        originalUser.setLastName(faker.name().lastName());
+        originalCustomer = new Users();
+        originalCustomer.setUserName(faker.name().username());
+        originalCustomer.setEmail(faker.internet().emailAddress());
+        originalCustomer.setPhoneNumber(faker.number().digits(10));
+        originalCustomer.setFirstName(faker.name().firstName());
+        originalCustomer.setLastName(faker.name().lastName());
 
-        Response createResponse = RestAssured.given()
-                .auth().preemptive().basic(adminUser, adminPass)
-                .spec(new RequestSpecBuilder().log(ALL).build())
-                .contentType(ContentType.JSON)
-                .body(originalUser)
-                .post("/api/users/customers");
+        Users created = customerApi.createCustomerAndExtract(originalCustomer);
+        customerPassword = created.getPassword();
+        assertNotNull(customerPassword, "No password returned.");
 
-        Assertions.assertEquals(200, createResponse.getStatusCode(),
-                "Unexpected status: " + createResponse.asString());
-
-        userPassword = createResponse.jsonPath().getString("password");
-
-        Response getResponse = RestAssured.given()
-                .auth().preemptive().basic(adminUser, adminPass)
-                .spec(new RequestSpecBuilder().log(ALL).build())
-                .get("/api/users?username=" + originalUser.getUserName());
-
-        System.out.println("Lookup response: " + getResponse.asString());
-
-        userId = getResponse.jsonPath().getInt("[0].id");
-
-        Assertions.assertNotNull(userId, "Could not resolve userId after creation.");
+        Users fetched = customerApi.findUserByUsername(originalCustomer.getUserName());
+        assertNotNull(fetched, "User not found after creation.");
+        customerId = fetched.getUserId();
+        assertNotNull(customerId, "User ID was not returned by search.");
     }
 
     @AfterEach
     public void teardownTestUser() {
-        if (userId != null) {
-            RestAssured.given()
-                    .auth().preemptive().basic(adminUser, adminPass)
-                    .spec(new RequestSpecBuilder().log(ALL).build())
-                    .delete("/api/users/" + userId);
+        if (customerId != null) {
+            customerApi.deleteUser(customerId);
         }
     }
 
     @Test
     @DisplayName("Should Create a Customer Successfully")
     public void customerSuccessfullyCreated() {
-        Assertions.assertNotNull(userId);
-        System.out.println("Customer id: " + userId);
+        assertNotNull(customerId);
+        assertNotNull(customerPassword);
     }
 
     @Test
-    @DisplayName("Should Update a Customer's Phone Number")
+    @DisplayName("Should Update a Customer's Phone Number (self-auth)")
     public void customerPhoneSuccessfullyUpdated() {
-        Users updatedUser = new Users();
-        updatedUser.setEmail(originalUser.getEmail());
-        updatedUser.setPhoneNumber(faker.number().digits(10));
-        updatedUser.setFirstName(originalUser.getFirstName());
-        updatedUser.setLastName(originalUser.getLastName());
+        Users updatedCustomer = new Users();
+        updatedCustomer.setEmail(originalCustomer.getEmail());
+        updatedCustomer.setPhoneNumber(faker.number().digits(10));
+        updatedCustomer.setFirstName(originalCustomer.getFirstName());
+        updatedCustomer.setLastName(originalCustomer.getLastName());
 
-        Response updateResponse = RestAssured.given()
-                .auth().preemptive().basic(originalUser.getUserName(), userPassword)
-                .spec(new RequestSpecBuilder().log(ALL).build())
-                .contentType(ContentType.JSON)
-                .body(updatedUser)
-                .put("/api/users/" + userId);
+        Response updateResponse = customerApi.userSelfUpdate(
+                customerId,
+                originalCustomer.getUserName(),
+                customerPassword,
+                updatedCustomer
+        );
 
-        Assertions.assertEquals(200, updateResponse.getStatusCode(),
-                "Update failed: " + updateResponse.asString());
+        assertEquals(200, updateResponse.getStatusCode(), "Phone number was not updated.");
     }
 
     @Test
     @DisplayName("Should Delete a Customer Successfully")
     public void customerSuccessfullyDeleted() {
-        Response deleteResponse = RestAssured.given()
-                .auth().preemptive().basic(adminUser, adminPass)
-                .spec(new RequestSpecBuilder().log(ALL).build())
-                .delete("/api/users/" + userId);
+        assertEquals(200, customerApi.deleteUser(customerId).getStatusCode(), "Delete call did not return 200.");
 
-        Assertions.assertEquals(200, deleteResponse.getStatusCode(),
-                "Delete failed: " + deleteResponse.asString());
+        Response getResponse = customerApi.getUserById(customerId);
+        assertEquals(404, getResponse.getStatusCode(), "Customer still exists after deletion.");
 
-        Response getResponse = RestAssured.given()
-                .auth().preemptive().basic(adminUser, adminPass)
-                .spec(new RequestSpecBuilder().log(ALL).build())
-                .get("/api/users/" + userId);
-
-        Assertions.assertEquals(404, getResponse.getStatusCode(),
-                "Expected 404 after delete, got: " + getResponse.statusCode());
-
-        userId = null;
+        customerId = null;
     }
 }

@@ -32,13 +32,13 @@ public class CustomerApi extends BaseApiService {
 
     public Response deleteUser(int userId) {
         return delete("/" + userId);
-    } /
+    }
 
     public Users findUserByUsername(String username) {
         Users[] results = request()
                 .queryParam("username", username)
                 .when()
-                .get("/api/users")
+                .get()
                 .then()
                 .statusCode(200)
                 .extract()
@@ -55,7 +55,6 @@ public class CustomerApi extends BaseApiService {
                 .auth().preemptive().basic(username, password)
                 .body(body)
                 .when()
-                .put("/api/users/" + userId);
+                .put("/" + userId);
     }
-
 }
