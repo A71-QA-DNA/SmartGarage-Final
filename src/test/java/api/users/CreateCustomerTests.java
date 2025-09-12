@@ -18,7 +18,7 @@ public class CreateCustomerTests {
     private String customerPassword;
 
     @BeforeEach
-    public void setupTestUser() {
+    void setupTestUser() {
         originalCustomer = new Users();
         originalCustomer.setUserName(faker.name().username());
         originalCustomer.setEmail(faker.internet().emailAddress());
@@ -37,7 +37,7 @@ public class CreateCustomerTests {
     }
 
     @AfterEach
-    public void teardownTestUser() {
+    void teardownTestUser() {
         if (customerId != null) {
             customerApi.deleteUser(customerId);
         }
@@ -45,14 +45,14 @@ public class CreateCustomerTests {
 
     @Test
     @DisplayName("Should Create a Customer Successfully")
-    public void customerSuccessfullyCreated() {
+    void customerSuccessfullyCreated() {
         assertNotNull(customerId);
         assertNotNull(customerPassword);
     }
 
     @Test
     @DisplayName("Should Update a Customer's Phone Number (self-auth)")
-    public void customerPhoneSuccessfullyUpdated() {
+    void customerPhoneSuccessfullyUpdated() {
         Users updatedCustomer = new Users();
         updatedCustomer.setEmail(originalCustomer.getEmail());
         updatedCustomer.setPhoneNumber(faker.number().digits(10));
@@ -71,7 +71,7 @@ public class CreateCustomerTests {
 
     @Test
     @DisplayName("Should Delete a Customer Successfully")
-    public void customerSuccessfullyDeleted() {
+    void customerSuccessfullyDeleted() {
         assertEquals(200, customerApi.deleteUser(customerId).getStatusCode(), "Delete call did not return 200.");
 
         Response getResponse = customerApi.getUserById(customerId);
