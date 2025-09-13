@@ -1,4 +1,4 @@
-package api;
+package api.services;
 
 import com.github.javafaker.Faker;
 import com.smartgarage.api.ServicesApi;
