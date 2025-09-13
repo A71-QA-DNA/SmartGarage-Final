@@ -20,7 +20,7 @@ public class EmployeesSearchUnhappyTests {
 
     @Test
     @DisplayName("Admin should not find a non-existent customer by username")
-    void userNotFound_when_adminSearchesByNonExistentUsername()  {
+    void userNotFound_when_adminSearchesByNonExistentUsername() {
         userName = faker.name().username();
         Users fetched = customerApi.findUserByUsername(userName);
         assertNull(fetched, "User found with non-existing username.");
@@ -36,7 +36,7 @@ public class EmployeesSearchUnhappyTests {
 
     @Test
     @DisplayName("Admin should not find a non-existent customer by phone")
-    void  userNotFound_when_adminSearchesByNonExistentPhone() {
+    void userNotFound_when_adminSearchesByNonExistentPhone() {
         phone = faker.number().digits(10);
         Users fetched = customerApi.findUserByPhone(phone);
         assertNull(fetched, "User found with non-existent phone.");
