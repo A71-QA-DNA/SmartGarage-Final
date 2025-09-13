@@ -12,23 +12,19 @@ import org.junit.jupiter.api.BeforeAll;
 
 public abstract class BaseApiService {
     private final Gson serializer;
-    private RequestSpecification requestSpecification;
+    private final String servicePath;
 
     public BaseApiService(String servicePath) {
+        this.servicePath = servicePath;
         this.serializer = new GsonBuilder().setPrettyPrinting().create();
-        this.requestSpecification = RequestSpecFactory.forService(servicePath);
     }
 
     public RequestSpecification request() {
-        return requestSpecification;
+        return RequestSpecFactory.forService(servicePath);
     }
 
     protected Gson gson() {
         return serializer;
-    }
-
-    protected void setRequestSpecification(RequestSpecification req) {
-        requestSpecification = req;
     }
 
     protected <T> T postAndExtract(String path, Object body, int expectedStatus, Class<T> type) {
@@ -47,6 +43,17 @@ public abstract class BaseApiService {
                 .body(body)
                 .when()
                 .post(path);
+    }
+
+    public Response get(String path,String key, Object value) {
+        if (key != null && value != null) {
+            return request()
+                    .queryParam(key, value)
+                    .when()
+                    .get(path);
+        } else {
+            return request().when().get(path);
+        }
     }
 
     protected Response delete(String path) {
