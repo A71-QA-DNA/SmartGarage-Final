@@ -3,6 +3,7 @@ package api.users;
 import com.github.javafaker.Faker;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@Epic("REST API")
+@Feature("Users – CRUD Operations")
 public class CreateCustomerUnhappyTests {
     private final CustomerApi customerApi = new CustomerApi();
     public final Faker faker = new Faker();
@@ -21,6 +23,8 @@ public class CreateCustomerUnhappyTests {
 
     @ParameterizedTest(name = "Username: {0}")
     @ValueSource(strings = {"a", "abcdefghijklmnopqrstuv", ""})
+    @Story("Create Customer: Invalid Username (too short / too long / empty)")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject invalid username formats and lengths")
     void createCustomer_withInvalidUsername_shouldReturn400(String invalidUsername) {
         Users newUser = new Users();
@@ -33,6 +37,8 @@ public class CreateCustomerUnhappyTests {
 
     @ParameterizedTest(name = "Phone: {0}")
     @ValueSource(strings = {"989898989", "98989898989", "*+9898#898", "98f98g9898", ""})
+    @Story("Create Customer: Invalid Phone (length/format)")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject invalid phone formats and lengths")
     void createCustomer_withInvalidPhoneNumber_shouldReturn400(String invalidPhoneNumber) {
         Users newUser = new Users();
@@ -45,6 +51,8 @@ public class CreateCustomerUnhappyTests {
 
     @ParameterizedTest(name = "Email: {0}")
     @ValueSource(strings = {"@bdoishd.com", "ehsgtd jdhys.com", "shgdtf@", "hagstdh@hf jdh.com", ""})
+    @Story("Create Customer: Invalid Email format")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject invalid email formats")
     void crateCustomer_withInvalidEmail_shouldReturn400(String invalidEmail) {
         Users newUser = new Users();
@@ -56,6 +64,8 @@ public class CreateCustomerUnhappyTests {
     }
 
     @Test
+    @Story("Create Customer: Duplicate Username")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject customer creation with duplicate username")
     void createCustomer_withDuplicateUsername_shouldReturn400() {
         originalCustomer = new Users();
@@ -87,6 +97,8 @@ public class CreateCustomerUnhappyTests {
     }
 
     @Test
+    @Story("Create Customer: Duplicate Email")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject customer creation with duplicate email")
     void createCustomer_withDuplicateEmail_shouldReturn400() {
         originalCustomer = new Users();
@@ -118,6 +130,8 @@ public class CreateCustomerUnhappyTests {
     }
 
     @Test
+    @Story("Create Customer: Duplicate Phone")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Should reject customer creation with duplicate phone number")
     void createCustomer_withDuplicatePhone_shouldReturn400() {
         originalCustomer = new Users();
