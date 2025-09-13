@@ -16,7 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 @Epic("Service API")
 @Feature("CRUD & Filtering")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ServiceApiTest extends BaseApiTest {
+public class ServiceApiTests extends BaseApiTest {
 
     private ServicesApi api;
     private final Faker faker = new Faker();

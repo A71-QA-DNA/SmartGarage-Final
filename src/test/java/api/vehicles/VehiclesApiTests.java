@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Vehicle API")
 @Feature("Validation & CRUD")
-public class VehiclesApiTest extends BaseApiTest {
+public class VehiclesApiTests extends BaseApiTest {
 
     private static VehicleApi api;
     private Integer vehicleId;
@@ -87,6 +87,7 @@ public class VehiclesApiTest extends BaseApiTest {
 
     @ParameterizedTest(name = "Brand {0} is not in whitelist")
     @ValueSource(strings = {"BMW", "Mercedes", "Volvo"})
+    @Story("The brand must be between 2 and 50 symbols.")
     public void create_invalid_brand_not_in_whitelist_returns400(String brandName) {
         VehicleRequest vehicleRequest = buildVehicleRequest();
         vehicleRequest.setBrandName(brandName);
@@ -97,6 +98,7 @@ public class VehiclesApiTest extends BaseApiTest {
 
     @ParameterizedTest(name = "Invalid model length {0}")
     @MethodSource("invalidNames")
+    @Story("The model must be between 2 and 50 symbols.")
     public void createVehicle_with_invalidModel_length_returns400(String modelName) {
         VehicleRequest vehicleRequest = buildVehicleRequest();
         vehicleRequest.setModelName(modelName);
@@ -117,6 +119,7 @@ public class VehiclesApiTest extends BaseApiTest {
 
     @ParameterizedTest(name = "Invalid year {0}")
     @ValueSource(ints = {-1, 0, 1885})
+    @Story("The year of creation must be a positive whole number larger than 1886.")
     public void createVehicle_with_invalidYear_returns400(int year) {
         VehicleRequest vehicleRequest = buildVehicleRequest();
         vehicleRequest.setYear(year);
@@ -135,5 +138,15 @@ public class VehiclesApiTest extends BaseApiTest {
         Response response = api.updateVehicle(created.getId(), vehicleRequest);
 
         assertEquals(200, response.statusCode(), "Update should return 200");
+    }
+
+    @Test
+    @Story("The year of creation must be a positive whole number larger than 1886.")
+    public void createVehicle_withFutureYear_returns400() {
+        VehicleRequest vehicleRequest = buildVehicleRequest();
+        vehicleRequest.setYear(2027);
+        Response response = api.createVehicle(vehicleRequest);
+
+        assertEquals(400, response.statusCode(), "Future year should return 400");
     }
 }
