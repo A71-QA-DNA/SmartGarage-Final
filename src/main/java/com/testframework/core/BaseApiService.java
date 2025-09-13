@@ -62,6 +62,13 @@ public abstract class BaseApiService {
                 .delete(path);
     }
 
+    protected Response put(String path, Object body) {
+        return request()
+                .body(body)
+                .when()
+                .put(path);
+    }
+
     @BeforeAll
     public static void beforeAll() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
