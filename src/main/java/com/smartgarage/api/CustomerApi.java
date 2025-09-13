@@ -26,6 +26,10 @@ public class CustomerApi extends BaseApiService {
         return postAndExtract("/customers", requestBody, 200, Users.class);
     }
 
+    public Response createCustomer(Users requestBody) {
+        return post("/customers", requestBody);
+    }
+
     public Response deleteUser(int userId) {
         return delete("/" + userId);
     }
