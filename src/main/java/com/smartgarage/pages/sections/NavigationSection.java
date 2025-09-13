@@ -16,37 +16,37 @@ public class NavigationSection extends BaseSection {
     }
 
     public WebElement myDetailsButton() {
-        String xpath = "";
+        String xpath = "//a[@href=\"/users/6/details\"]";
         return createByXpath(xpath);
     }
 
     public WebElement myOrdersButton() {
-        String xpath = "";
+        String xpath = "//a[@href=\"/users/6/orders\"]";
         return createByXpath(xpath);
     }
 
     public WebElement servicesButton() {
-        String xpath = "";
+        String xpath = "//a[@title=\"Services\"][1]";
         return createByXpath(xpath);
     }
 
     public WebElement vehiclesButton() {
-        String xpath = "";
+        String xpath = "//a[@title=\"Vehicles\"]";
         return createByXpath(xpath);
     }
 
     public WebElement galleryButton() {
-        String xpath = "";
+        String xpath = "//a[@title=\"Gallery\"][1]";
         return createByXpath(xpath);
     }
 
     public WebElement adminPanelButton() {
-        String xpath = "";
+        String xpath = "//a[@title=\"Admin Panel\"]";
         return createByXpath(xpath);
     }
 
     public WebElement jobCenterButton() {
-        String xpath = "";
+        String xpath = "//a[@title=\"Contact\"][1]";
         return createByXpath(xpath);
     }
 }
