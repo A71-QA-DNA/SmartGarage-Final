@@ -5,22 +5,22 @@ import org.openqa.selenium.support.FindBy;
 
 public class ServicesPage extends BaseSmartGaragePage {
 
-    @FindBy(css = "ul.services-list a[title='Engine Diagnostics']")
+    @FindBy(css = "ul.services-list a[href='/services/engine-diagnostics']")
     private WebElement engineDiagnosticsLink;
 
-    @FindBy(css = "ul.services-list a[title='Lube, Oil and Filters']")
+    @FindBy(css = "ul.services-list a[href='/services/lube-oil-filters']")
     private WebElement lubeOilFiltersLink;
 
-    @FindBy(css = "ul.services-list a[title='Belts and Hoses']")
+    @FindBy(css = "ul.services-list a[href='/services/belts-hoses']")
     private WebElement beltsHosesLink;
 
-    @FindBy(css = "ul.services-list a[title='Air Conditioning']")
+    @FindBy(css = "ul.services-list a[href='/services/air-conditioning']")
     private WebElement airConditioningLink;
 
-    @FindBy(css = "ul.services-list a[title='Brake Repair']")
+    @FindBy(css = "ul.services-list a[href='/services/brake-repair']")
     private WebElement brakeRepairLink;
 
-    @FindBy(css = "ul.services-list a[title='Tire and Wheel Services']")
+    @FindBy(css = "ul.services-list a[href='/services/tire-wheel']")
     private WebElement tireWheelLink;
 
     public ServicesPage() {
@@ -28,17 +28,17 @@ public class ServicesPage extends BaseSmartGaragePage {
     }
 
     public void clickEngineDiagnosticsLink() {
-        waitForElementToBeClickable(engineDiagnosticsLink);
+        waitForElementToBeVisible(engineDiagnosticsLink);
         engineDiagnosticsLink.click();
     }
 
     public void clickLubeOilFiltersLink() {
-        waitForElementToBeClickable(lubeOilFiltersLink);
+        waitForElementToBeVisible(lubeOilFiltersLink);
         lubeOilFiltersLink.click();
     }
 
     public void clickBeltsHosesLink() {
-        waitForElementToBeClickable(beltsHosesLink);
+        waitForElementToBeVisible(beltsHosesLink);
         beltsHosesLink.click();
     }
 
