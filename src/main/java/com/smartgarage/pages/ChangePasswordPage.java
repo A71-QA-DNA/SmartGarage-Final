@@ -1,11 +1,9 @@
 package com.smartgarage.pages;
 
-import com.testframework.core.BaseWebPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ChangePasswordPage extends BaseWebPage {
+public class ChangePasswordPage extends BaseSmartGaragePage {
 
     @FindBy(xpath = "//input[@id='old-password']")
     private WebElement oldPasswordField;
@@ -19,8 +17,8 @@ public class ChangePasswordPage extends BaseWebPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement savePasswordButton;
 
-    protected ChangePasswordPage(WebDriver webDriver) {
-        super(webDriver, "users/6/password-change");
+    protected ChangePasswordPage() {
+        super("users/6/password-change");
     }
 
     public ChangePasswordPage enterOldPassword(String oldPassword) {
@@ -47,7 +45,7 @@ public class ChangePasswordPage extends BaseWebPage {
     public MyDetailsPage clickSavePassword() {
         waitForElementToBeClickable(savePasswordButton);
         savePasswordButton.click();
-        return new MyDetailsPage(webDriver);
+        return new MyDetailsPage();
     }
 
     public MyDetailsPage changePassword(String oldPassword, String newPassword) {

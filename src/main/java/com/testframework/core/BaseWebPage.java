@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BaseWebPage {
@@ -37,6 +38,14 @@ public abstract class BaseWebPage {
 
     public void navigate() {
         driver().get(getPageUrl());
+    }
+
+    protected void waitForElementToBeVisible(WebElement element) {
+        driverWait().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void waitForElementToBeClickable(WebElement element) {
+        driverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void assertNavigated() {
