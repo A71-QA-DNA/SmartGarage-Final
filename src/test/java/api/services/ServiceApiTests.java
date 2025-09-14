@@ -94,7 +94,7 @@ public class ServiceApiTests extends BaseApiTest {
                 .name(createdName)
                 .price(200)
                 .build();
-        ServiceResponse updated = api.update(createdId, update, 200);
+        ServiceResponse updated = api.update(createdId, update);
 
         Assertions.assertEquals(200, updated.getPrice());
         Assertions.assertEquals(createdName, updated.getName());

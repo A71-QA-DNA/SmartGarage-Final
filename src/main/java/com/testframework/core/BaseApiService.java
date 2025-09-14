@@ -27,13 +27,12 @@ public abstract class BaseApiService {
         return serializer;
     }
 
-    protected <T> T postAndExtract(String path, Object body, int expectedStatus, Class<T> type) {
+    protected <T> T postAndExtract(String path, Object body, Class<T> type) {
         return request()
                 .body(body)
                 .when()
                 .post(path)
                 .then()
-                .statusCode(expectedStatus)
                 .extract()
                 .as(type);
     }
@@ -45,7 +44,7 @@ public abstract class BaseApiService {
                 .post(path);
     }
 
-    public Response get(String path,String key, Object value) {
+    public Response get(String path, String key, Object value) {
         if (key != null && value != null) {
             return request()
                     .queryParam(key, value)

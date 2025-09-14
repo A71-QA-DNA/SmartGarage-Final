@@ -23,7 +23,7 @@ public class CustomerApi extends BaseApiService {
     }
 
     public Users createCustomerAndExtract(Users requestBody) { //da
-        return postAndExtract("/customers", requestBody, 200, Users.class);
+        return postAndExtract("/customers", requestBody, Users.class);
     }
 
     public Response createCustomer(Users requestBody) {

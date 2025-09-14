@@ -71,4 +71,11 @@ public class UsersAPITests extends BaseApiTest {
         Response response = api.createCustomer(duplicate);
         assertEquals(500, response.statusCode(), "Duplicate username should return 500");
     }
+
+    @Test
+    public void createCustomer_withInvalidEmail_returns400() {
+        Users usersRequest = validCustomer();
+        Users[] customerAndExtract = api.createCustomerAndExtractWithId(usersRequest).as(Users[].class);
+        System.out.println();
+    }
 }

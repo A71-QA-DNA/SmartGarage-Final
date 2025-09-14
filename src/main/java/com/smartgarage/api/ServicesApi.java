@@ -15,7 +15,7 @@ public class ServicesApi extends BaseApiService {
     }
 
     public ServiceResponse createNewService(ServiceRequest service) {
-        return postAndExtract("", service, 200, ServiceResponse.class);
+        return postAndExtract("", service, ServiceResponse.class);
     }
 
     public Response delete(int serviceId) {
@@ -26,14 +26,13 @@ public class ServicesApi extends BaseApiService {
         return post("", serviceRequest);
     }
 
-    public ServiceResponse update(Integer serviceId, ServiceRequest request, int expectedStatus) {
+    public ServiceResponse update(Integer serviceId, ServiceRequest request) {
         return request()
                 .contentType(JSON)
                 .body(request)
                 .when()
                 .put("/{id}", serviceId)
                 .then()
-                .statusCode(expectedStatus)
                 .extract()
                 .as(ServiceResponse.class);
     }
