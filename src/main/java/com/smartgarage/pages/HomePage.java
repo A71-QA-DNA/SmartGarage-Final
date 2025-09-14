@@ -8,7 +8,6 @@ public class HomePage extends BaseWebPage {
 
     public HomePage (WebDriver webDriver) {
         super(webDriver, "");
-        PageFactory.initElements(webDriver, this);
     }
 
     @Override

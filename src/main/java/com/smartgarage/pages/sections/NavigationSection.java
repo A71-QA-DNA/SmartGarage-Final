@@ -3,12 +3,9 @@ package com.smartgarage.pages.sections;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class NavigationSection extends BaseSection {
-
-    public NavigationSection(WebDriver webDriver) {
-        super(webDriver);
-    }
 
     @FindBy(xpath = "//i[@class='fas fa-sign-in-alt']")
     protected WebElement loginButton;
@@ -45,4 +42,8 @@ public class NavigationSection extends BaseSection {
 
     @FindBy(xpath = "//i[@class='fas fa-sign-out-alt']")
     protected WebElement logoutButton;
+
+    public NavigationSection(WebDriver webDriver) {
+        super(webDriver);
+    }
 }
