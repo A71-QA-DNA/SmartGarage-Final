@@ -1,8 +1,8 @@
 package com.smartgarage.pages.sections;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class NavigationSection extends BaseSection {
 
@@ -10,43 +10,39 @@ public class NavigationSection extends BaseSection {
         super(webDriver);
     }
 
-    public WebElement homeButton() {
-        String xpath = "//a[@href='/'][@title='Home'][1]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//i[@class='fas fa-sign-in-alt']")
+    protected WebElement loginButton;
 
-    public WebElement myDetailsButton() {
-        String xpath = "//a[@href=\"/users/6/details\"]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/\"]")
+    protected WebElement homeButton;
 
-    public WebElement myOrdersButton() {
-        String xpath = "//a[@href=\"/users/6/orders\"]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//a[@href=\"/users/6/details\"]")
+    protected WebElement myDetailsButton;
 
-    public WebElement servicesButton() {
-        String xpath = "//a[@title=\"Services\"][1]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//a[@href=\"/users/6/orders\"]")
+    protected WebElement myOrdersButton;
 
-    public WebElement vehiclesButton() {
-        String xpath = "//a[@title=\"Vehicles\"]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/services\"]")
+    protected WebElement servicesButton;
 
-    public WebElement galleryButton() {
-        String xpath = "//a[@title=\"Gallery\"][1]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/vehicles\"]")
+    protected WebElement vehiclesButton;
 
-    public WebElement adminPanelButton() {
-        String xpath = "//a[@title=\"Admin Panel\"]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/gallery\"]")
+    protected WebElement galleryButton;
 
-    public WebElement jobCenterButton() {
-        String xpath = "//a[@title=\"Contact\"][1]";
-        return createByXpath(xpath);
-    }
+    @FindBy(xpath = "//a[@title=\"Admin Panel\"]")
+    protected WebElement adminPanelButton;
+
+    @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/contact\"]")
+    protected WebElement jobCenterButton;
+
+    @FindBy(xpath = "//a[@title='MAKE AN APPOINTMENT']")
+    protected WebElement makeAnAppointmentButton;
+
+    @FindBy(xpath = "")
+    protected WebElement readMoreButton;
+
+    @FindBy(xpath = "//i[@class='fas fa-sign-out-alt']")
+    protected WebElement logoutButton;
 }

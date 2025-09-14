@@ -1,6 +1,5 @@
 package com.smartgarage.pages;
 
-import com.testframework.PropertiesManager;
 import com.testframework.core.BaseWebPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +19,9 @@ public class LoginPage extends BaseWebPage {
 
     @FindBy(xpath = "//div[@id='login-form']//button")
     private WebElement loginButton;
+
+    @FindBy(xpath = "//a[@href=\"/users/forgot-password\"]")
+    private WebElement forgotPasswordButton;
 
     @FindBy(id = "register-tab")
     private WebElement registerTab;
@@ -51,13 +53,25 @@ public class LoginPage extends BaseWebPage {
         waitForElementToBeVisible(usernameField);
         usernameField.clear();
         usernameField.sendKeys(username);
-        return this; // Enable method chaining
+        return this;
     }
 
     public LoginPage enterPassword(String password) {
         passwordField.clear();
         passwordField.sendKeys(password);
         return this;
+    }
+
+    public HomePage clickLoginButton() {
+        waitForElementToBeClickable(loginButton);
+        loginButton.click();
+        return new HomePage(webDriver);
+    }
+
+    public HomePage loginWith(String username, String password) {
+        return enterUsername(username)
+                .enterPassword(password)
+                .clickLoginButton();
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.testframework.core;
 
+import com.smartgarage.pages.sections.NavigationSection;
 import com.testframework.PropertiesManager;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,11 +18,16 @@ public abstract class BaseWebPage {
     protected final WebDriver webDriver;
     private final String pageUrl;
     protected final WebDriverWait webDriverWait;
+    @Getter
+    private final NavigationSection navigationSection;
+    protected final Actions actions;
 
     protected BaseWebPage(WebDriver webDriver, String pageUrl) {
         this.webDriver = webDriver;
         this.pageUrl = pageUrl;
         this.webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(Integer.parseInt(PropertiesManager.getConfigProperties().getProperty("defaultTimeoutSeconds"))));
+        this.navigationSection = new NavigationSection(webDriver);
+        this.actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
@@ -46,7 +54,14 @@ public abstract class BaseWebPage {
         webDriver.navigate().to(getPageUrl());
         waitForElementToBeVisible(mainHeading);
     }
-//    private final String pageUrl;
+
+    protected void hoverOver(WebElement element, WebElement expectedElement) {
+            waitForElementToBeVisible(element);
+            actions.moveToElement(element).perform();
+            waitForElementToBeClickable(expectedElement);
+    }
+
+    //    private final String pageUrl;
 //
 //    // Url
 //
