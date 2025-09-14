@@ -3,13 +3,14 @@ package api.users;
 import com.github.javafaker.Faker;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
+import com.testframework.core.BaseApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CreateCustomerTests {
+public class CreateCustomerTests extends BaseApiTest {
     private final CustomerApi customerApi = new CustomerApi();
     private final Faker faker = new Faker();
 

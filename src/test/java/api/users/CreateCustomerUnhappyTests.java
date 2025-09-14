@@ -3,6 +3,7 @@ package api.users;
 import com.github.javafaker.Faker;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
+import com.testframework.core.BaseApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Epic("REST API")
 @Feature("Users – CRUD Operations")
-public class CreateCustomerUnhappyTests {
+public class CreateCustomerUnhappyTests extends BaseApiTest {
     private final CustomerApi customerApi = new CustomerApi();
     public final Faker faker = new Faker();
     private Users originalCustomer;
