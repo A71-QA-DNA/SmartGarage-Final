@@ -46,7 +46,6 @@ public class LoginPage extends BaseWebPage {
 
     protected LoginPage(WebDriver webDriver) {
         super(webDriver, "auth/login");
-        PageFactory.initElements(webDriver, this);
     }
 
     public LoginPage enterUsername(String username) {
