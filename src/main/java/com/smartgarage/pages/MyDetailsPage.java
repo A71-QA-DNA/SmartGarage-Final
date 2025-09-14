@@ -52,6 +52,101 @@ public class MyDetailsPage extends BaseWebPage {
 
     protected MyDetailsPage(WebDriver webDriver) {
         super(webDriver, "users/6/details");
-        PageFactory.initElements(webDriver, this);
+    }
+
+    public MyDetailsPage clickChoosePhoto() {
+        waitForElementToBeClickable(choosePhotoButton);
+        choosePhotoButton.click();
+        return this;
+    }
+
+    public MyDetailsPage clickEditInfo() {
+        waitForElementToBeClickable(editInfoButton);
+        editInfoButton.click();
+        return this;
+    }
+
+    public MyDetailsPage enterFirstName(String firstName) {
+        waitForElementToBeVisible(firstNameField);
+        firstNameField.clear();
+        firstNameField.sendKeys(firstName);
+        return this;
+    }
+
+    public MyDetailsPage enterLastName(String lastName) {
+        waitForElementToBeVisible(lastNameField);
+        lastNameField.clear();
+        lastNameField.sendKeys(lastName);
+        return this;
+    }
+
+    public MyDetailsPage enterEmail(String email) {
+        waitForElementToBeVisible(emailField);
+        emailField.clear();
+        emailField.sendKeys(email);
+        return this;
+    }
+
+    public MyDetailsPage enterPhone(String phone) {
+        waitForElementToBeVisible(phoneField);
+        phoneField.clear();
+        phoneField.sendKeys(phone);
+        return this;
+    }
+
+    public MyDetailsPage clickSaveInfo() {
+        waitForElementToBeClickable(saveInfoButton);
+        saveInfoButton.click();
+        return this;
+    }
+
+    public MyDetailsPage clickChangePassword() {
+        waitForElementToBeClickable(changePasswordButton);
+        changePasswordButton.click();
+        return this;
+    }
+
+    public MyDetailsPage enterOldPassword(String oldPassword) {
+        waitForElementToBeVisible(oldPasswordField);
+        oldPasswordField.clear();
+        oldPasswordField.sendKeys(oldPassword);
+        return this;
+    }
+
+    public MyDetailsPage enterNewPassword(String newPassword) {
+        waitForElementToBeVisible(newPasswordField);
+        newPasswordField.clear();
+        newPasswordField.sendKeys(newPassword);
+        return this;
+    }
+
+    public MyDetailsPage enterConfirmPassword(String confirmPassword) {
+        waitForElementToBeVisible(confirmPasswordField);
+        confirmPasswordField.clear();
+        confirmPasswordField.sendKeys(confirmPassword);
+        return this;
+    }
+
+    public MyDetailsPage clickSavePassword() {
+        waitForElementToBeClickable(savePasswordButton);
+        savePasswordButton.click();
+        return this;
+    }
+
+    public MyDetailsPage updateProfile(String firstName, String lastName, String email, String phone) {
+        return clickEditInfo()
+                .enterFirstName(firstName)
+                .enterLastName(lastName)
+                .enterEmail(email)
+                .enterPhone(phone)
+                .clickSaveInfo();
+    }
+
+    public MyDetailsPage changePassword(String oldPassword, String newPassword) {
+        return clickChangePassword()
+                .enterOldPassword(oldPassword)
+                .enterNewPassword(newPassword)
+                .enterConfirmPassword(newPassword)
+                .clickSavePassword();
     }
 }
