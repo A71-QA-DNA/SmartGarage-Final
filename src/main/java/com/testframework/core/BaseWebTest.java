@@ -1,7 +1,6 @@
 package com.testframework.core;
 
-import com.smartgarage.pages.AdminPanelPage;
-import com.smartgarage.pages.LoginPage;
+import com.smartgarage.pages.*;
 import com.testframework.Driver;
 import com.testframework.DriverManager;
 import org.junit.jupiter.api.AfterAll;
@@ -13,11 +12,15 @@ public abstract class BaseWebTest {
 
     protected LoginPage loginPage;
     protected AdminPanelPage adminPanelPage;
+    protected ServicesPage servicesPage;
+    protected ServiceOverviewPage serviceOverviewPage;
 
     @BeforeEach
     public void before() {
         loginPage = new LoginPage();
         adminPanelPage = new AdminPanelPage();
+        servicesPage = new ServicesPage();
+        serviceOverviewPage = new ServiceOverviewPage();
     }
 
     public static Driver driver() {
