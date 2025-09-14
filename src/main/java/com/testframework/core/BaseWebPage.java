@@ -15,7 +15,7 @@ public abstract class BaseWebPage {
 
     protected BaseWebPage(String pageUrl) {
         this.pageUrl = pageUrl;
-//        PageFactory.initElements(DriverManager.getDriver(), this);
+        PageFactory.initElements(DriverManager.getDriver(), this);
     }
 
     @FindBy(xpath = "//a[@title='CarService']")

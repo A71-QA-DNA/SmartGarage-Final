@@ -2,7 +2,7 @@ package com.smartgarage.pages;
 
 public class BeltsHosesPage extends BaseSmartGaragePage {
 
-    protected BeltsHosesPage() {
-        super("");
+    public BeltsHosesPage() {
+        super("services/belts-hoses");
     }
 }
