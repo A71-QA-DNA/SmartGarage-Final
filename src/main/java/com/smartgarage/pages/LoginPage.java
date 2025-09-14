@@ -8,6 +8,9 @@ public class LoginPage extends BaseSmartGaragePage {
     @FindBy(id = "login-tab")
     private WebElement loginTab;
 
+    @FindBy(xpath = "//a[@href='/auth/logout']")
+    private WebElement logoutTab;
+
     @FindBy(id = "login-username")
     private WebElement usernameField;
 
@@ -43,5 +46,26 @@ public class LoginPage extends BaseSmartGaragePage {
 
     public LoginPage() {
         super ("auth/login");
+    }
+
+
+    public void loginAs(String username, String password) {
+        waitForElementToBeClickable(loginTab);
+        loginTab.click();
+
+        waitForElementToBeVisible(usernameField);
+        usernameField.clear();
+        usernameField.sendKeys(username);
+
+        waitForElementToBeVisible(passwordField);
+        passwordField.clear();
+        passwordField.sendKeys(password);
+
+        loginButton.click();
+    }
+
+    public void logout() {
+        waitForElementToBeClickable(logoutTab);
+        logoutTab.click();
     }
 }
