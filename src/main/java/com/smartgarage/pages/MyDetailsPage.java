@@ -1,12 +1,9 @@
 package com.smartgarage.pages;
 
-import com.testframework.core.BaseWebPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class MyDetailsPage extends BaseWebPage {
+public class MyDetailsPage extends BaseSmartGaragePage {
 
     @FindBy(xpath = "//label[@for='avatarFile']")
     private WebElement choosePhotoButton;
@@ -50,85 +47,73 @@ public class MyDetailsPage extends BaseWebPage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement savePasswordButton;
 
-    protected MyDetailsPage(WebDriver webDriver) {
-        super(webDriver, "users/6/details");
+    protected MyDetailsPage() {
+        super("");
     }
 
     public MyDetailsPage clickChoosePhoto() {
-        waitForElementToBeClickable(choosePhotoButton);
         choosePhotoButton.click();
         return this;
     }
 
     public MyDetailsPage clickEditInfo() {
-        waitForElementToBeClickable(editInfoButton);
         editInfoButton.click();
         return this;
     }
 
     public MyDetailsPage enterFirstName(String firstName) {
-        waitForElementToBeVisible(firstNameField);
         firstNameField.clear();
         firstNameField.sendKeys(firstName);
         return this;
     }
 
     public MyDetailsPage enterLastName(String lastName) {
-        waitForElementToBeVisible(lastNameField);
         lastNameField.clear();
         lastNameField.sendKeys(lastName);
         return this;
     }
 
     public MyDetailsPage enterEmail(String email) {
-        waitForElementToBeVisible(emailField);
         emailField.clear();
         emailField.sendKeys(email);
         return this;
     }
 
     public MyDetailsPage enterPhone(String phone) {
-        waitForElementToBeVisible(phoneField);
         phoneField.clear();
         phoneField.sendKeys(phone);
         return this;
     }
 
     public MyDetailsPage clickSaveInfo() {
-        waitForElementToBeClickable(saveInfoButton);
         saveInfoButton.click();
         return this;
     }
 
     public MyDetailsPage clickChangePassword() {
-        waitForElementToBeClickable(changePasswordButton);
         changePasswordButton.click();
         return this;
     }
 
     public MyDetailsPage enterOldPassword(String oldPassword) {
-        waitForElementToBeVisible(oldPasswordField);
         oldPasswordField.clear();
         oldPasswordField.sendKeys(oldPassword);
         return this;
     }
 
     public MyDetailsPage enterNewPassword(String newPassword) {
-        waitForElementToBeVisible(newPasswordField);
         newPasswordField.clear();
         newPasswordField.sendKeys(newPassword);
         return this;
     }
 
     public MyDetailsPage enterConfirmPassword(String confirmPassword) {
-        waitForElementToBeVisible(confirmPasswordField);
         confirmPasswordField.clear();
         confirmPasswordField.sendKeys(confirmPassword);
         return this;
     }
 
     public MyDetailsPage clickSavePassword() {
-        waitForElementToBeClickable(savePasswordButton);
         savePasswordButton.click();
         return this;
     }

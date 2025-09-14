@@ -43,7 +43,7 @@ public class NavigationSection extends BaseSection {
     @FindBy(xpath = "//i[@class='fas fa-sign-out-alt']")
     protected WebElement logoutButton;
 
-    public NavigationSection(WebDriver webDriver) {
-        super(webDriver);
+    public NavigationSection() {
+        super();
     }
 }

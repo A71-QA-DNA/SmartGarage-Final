@@ -6,8 +6,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class ServicesSection extends BaseSection {
 
-    public ServicesSection(WebDriver webDriver) {
-        super(webDriver);
+    public ServicesSection() {
+        super();
+
     }
 
     @FindBy(xpath = "//a[@href='/services/engine-diagnostics']")
