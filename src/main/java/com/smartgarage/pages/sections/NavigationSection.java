@@ -44,4 +44,9 @@ public class NavigationSection extends BaseSection {
     public NavigationSection() {
         super();
     }
+
+    public void clickAdminPanelButton(){
+        waitForElementToBeVisible(adminPanelButton);
+        adminPanelButton.click();
+    }
 }
