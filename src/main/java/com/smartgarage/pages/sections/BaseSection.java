@@ -1,8 +1,10 @@
 package com.smartgarage.pages.sections;
 
-public abstract class BaseSection {
+import com.smartgarage.pages.BaseSmartGaragePage;
 
+public abstract class BaseSection extends BaseSmartGaragePage {
 
     protected BaseSection() {
+        super("");
     }
 }
