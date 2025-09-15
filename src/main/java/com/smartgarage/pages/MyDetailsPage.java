@@ -27,6 +27,8 @@ public class MyDetailsPage extends BaseSmartGaragePage {
 
     @FindBy(id = "email-text") private  WebElement emailText;
 
+    @FindBy(id = "phone-text") private  WebElement phoneText;
+
     @FindBy(xpath = "//a[@href='/users/6/password-change']") private WebElement changePasswordButton;
 
     @FindBy(xpath = "//input[@id='old-password']") private WebElement oldPasswordField;
@@ -133,5 +135,10 @@ public class MyDetailsPage extends BaseSmartGaragePage {
     public String getEmail(){
         waitForElementToBeVisible(emailText);
         return emailText.getText();
+    }
+
+    public String getPhone(){
+        waitForElementToBeVisible(phoneText);
+        return phoneText.getText();
     }
 }
