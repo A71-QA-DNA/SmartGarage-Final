@@ -11,6 +11,7 @@ public class CreateMechanicPage extends BaseSmartGaragePage{
     @FindBy(id = "reg-last-name") private WebElement lastNameField;
     @FindBy(id = "reg-phone") private WebElement phoneField;
     @FindBy(xpath = "//button[@type='submit']") private WebElement registerButton;
+    @FindBy(xpath = "//div[@class='login-register-box']//p[1]/span") private WebElement userNameSpan;
 
     public CreateMechanicPage() {
         super("users/mechanic");
@@ -31,5 +32,10 @@ public class CreateMechanicPage extends BaseSmartGaragePage{
 
     public void clickRegisterButton(){
         registerButton.click();
+    }
+
+    public String getCreatedUsername() {
+        waitForElementToBeVisible(userNameSpan);
+        return userNameSpan.getText().trim();
     }
 }
