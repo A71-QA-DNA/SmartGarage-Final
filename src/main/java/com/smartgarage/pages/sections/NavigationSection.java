@@ -54,4 +54,5 @@ public class NavigationSection extends BaseSection {
         waitForElementToBeVisible(myDetailsButton);
         adminPanelButton.click();
     }
+
 }
