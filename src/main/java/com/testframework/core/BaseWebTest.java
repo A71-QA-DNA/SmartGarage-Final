@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public abstract class BaseWebTest {
-
+    protected Faker faker;
     protected LoginPage loginPage;
     protected AdminPanelPage adminPanelPage;
     protected ServicesPage servicesPage;
@@ -20,7 +20,7 @@ public abstract class BaseWebTest {
     protected CreateEmployeePage createEmployeePage;
     protected CreateMechanicPage createMechanicPage;
     protected NavigationSection navigationSection;
-    protected Faker faker;
+    protected MyDetailsPage myDetailsPage;
 
     @BeforeEach
     public void before() {
@@ -33,6 +33,7 @@ public abstract class BaseWebTest {
         createEmployeePage = new CreateEmployeePage();
         createMechanicPage = new CreateMechanicPage();
         navigationSection = new NavigationSection();
+        myDetailsPage = new MyDetailsPage();
     }
 
     public static Driver driver() {
