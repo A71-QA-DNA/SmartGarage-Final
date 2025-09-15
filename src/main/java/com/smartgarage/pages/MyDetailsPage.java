@@ -29,7 +29,7 @@ public class MyDetailsPage extends BaseSmartGaragePage {
 
     @FindBy(id = "phone-text") private  WebElement phoneText;
 
-    @FindBy(xpath = "//a[@href='/users/6/password-change']") private WebElement changePasswordButton;
+    @FindBy(xpath = "//a[@class='custom-button']") private WebElement changePasswordButton;
 
     @FindBy(xpath = "//input[@id='old-password']") private WebElement oldPasswordField;
 
@@ -83,6 +83,7 @@ public class MyDetailsPage extends BaseSmartGaragePage {
     }
 
     public MyDetailsPage clickChangePassword() {
+        waitForElementToBeClickable(changePasswordButton);
         changePasswordButton.click();
         return this;
     }
