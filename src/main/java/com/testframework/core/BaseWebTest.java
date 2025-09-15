@@ -21,6 +21,7 @@ public abstract class BaseWebTest {
     protected CreateMechanicPage createMechanicPage;
     protected NavigationSection navigationSection;
     protected MyDetailsPage myDetailsPage;
+    protected HomePage homePage;
 
     @BeforeEach
     public void before() {
@@ -34,6 +35,7 @@ public abstract class BaseWebTest {
         createMechanicPage = new CreateMechanicPage();
         navigationSection = new NavigationSection();
         myDetailsPage = new MyDetailsPage();
+        homePage = new HomePage();
     }
 
     public static Driver driver() {
