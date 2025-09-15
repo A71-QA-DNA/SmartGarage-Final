@@ -9,6 +9,7 @@ import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Vehicle API")
 @Feature("Validation & CRUD")
+@Tag("vehicle_api")
 public class VehiclesApiTests extends BaseApiTest {
 
     private static VehicleApi api;
