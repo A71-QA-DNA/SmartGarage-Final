@@ -11,7 +11,7 @@ public class NavigationSection extends BaseSection {
     @FindBy(xpath = "//ul[@class='sf-menu']//a[@href=\"/\"]")
     protected WebElement homeButton;
 
-    @FindBy(xpath = "//a[@href=\"/users/6/details\"]")
+    @FindBy(xpath = "//a[normalize-space(text())='My Details']")
     protected WebElement myDetailsButton;
 
     @FindBy(xpath = "//a[@href=\"/users/6/orders\"]")
@@ -47,6 +47,11 @@ public class NavigationSection extends BaseSection {
 
     public void clickAdminPanelButton(){
         waitForElementToBeVisible(adminPanelButton);
+        adminPanelButton.click();
+    }
+
+    public void clickMyDetailsButton(){
+        waitForElementToBeVisible(myDetailsButton);
         adminPanelButton.click();
     }
 }
