@@ -5,49 +5,37 @@ import org.openqa.selenium.support.FindBy;
 
 public class MyDetailsPage extends BaseSmartGaragePage {
 
-    @FindBy(xpath = "//label[@for='avatarFile']")
-    private WebElement choosePhotoButton;
+    @FindBy(xpath = "//label[@for='avatarFile']") private WebElement choosePhotoButton;
 
-    @FindBy(xpath = "//button[@id='edit-info-button']")
-    private WebElement editInfoButton;
+    @FindBy(xpath = "//button[@id='edit-info-button']") private WebElement editInfoButton;
 
-    @FindBy(xpath = "//input[@id='first-name-input']")
-    private WebElement firstNameField;
+    @FindBy(xpath = "//input[@id='first-name-input']") private WebElement firstNameField;
 
-    @FindBy(xpath = "//input[@id='last-name-input']")
-    private WebElement lastNameField;
+    @FindBy(xpath = "//input[@id='last-name-input']") private WebElement lastNameField;
 
-    @FindBy(xpath = "//span[@id='username-text']")
-    private WebElement usernameField;
+    @FindBy(xpath = "//span[@id='username-text']") private WebElement usernameField;
 
-    @FindBy(xpath = "//input[@id='email-input']")
-    private WebElement emailField;
+    @FindBy(xpath = "//input[@id='email-input']") private WebElement emailField;
 
-    @FindBy(xpath = "//input[@id='phone-input']")
-    private WebElement phoneField;
+    @FindBy(xpath = "//input[@id='phone-input']") private WebElement phoneField;
 
-    @FindBy(xpath = "//span[@id='role-text']")
-    private WebElement roleField;
+    @FindBy(xpath = "//span[@id='role-text']") private WebElement roleField;
 
-    @FindBy(xpath = "//button[@id='save-info-button']")
-    private WebElement saveInfoButton;
+    @FindBy(xpath = "//button[@id='save-info-button']") private WebElement saveInfoButton;
 
-    @FindBy(xpath = "//a[@href='/users/6/password-change']")
-    private WebElement changePasswordButton;
+    @FindBy(id = "full-name-text") private WebElement fullNameText;
 
-    @FindBy(xpath = "//input[@id='old-password']")
-    private WebElement oldPasswordField;
+    @FindBy(xpath = "//a[@href='/users/6/password-change']") private WebElement changePasswordButton;
 
-    @FindBy(xpath = "//input[@id='new-password']")
-    private WebElement newPasswordField;
+    @FindBy(xpath = "//input[@id='old-password']") private WebElement oldPasswordField;
 
-    @FindBy(xpath = "//input[@id='confirm-password']")
-    private WebElement confirmPasswordField;
+    @FindBy(xpath = "//input[@id='new-password']") private WebElement newPasswordField;
 
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement savePasswordButton;
+    @FindBy(xpath = "//input[@id='confirm-password']") private WebElement confirmPasswordField;
 
-    protected MyDetailsPage() {
+    @FindBy(xpath = "//button[@type='submit']") private WebElement savePasswordButton;
+
+    public MyDetailsPage() {
         super("");
     }
 
@@ -61,25 +49,25 @@ public class MyDetailsPage extends BaseSmartGaragePage {
         return this;
     }
 
-    public MyDetailsPage enterFirstName(String firstName) {
+    public MyDetailsPage editFirstName(String firstName) {
         firstNameField.clear();
         firstNameField.sendKeys(firstName);
         return this;
     }
 
-    public MyDetailsPage enterLastName(String lastName) {
+    public MyDetailsPage editLastName(String lastName) {
         lastNameField.clear();
         lastNameField.sendKeys(lastName);
         return this;
     }
 
-    public MyDetailsPage enterEmail(String email) {
+    public MyDetailsPage editEmail(String email) {
         emailField.clear();
         emailField.sendKeys(email);
         return this;
     }
 
-    public MyDetailsPage enterPhone(String phone) {
+    public MyDetailsPage editPhone(String phone) {
         phoneField.clear();
         phoneField.sendKeys(phone);
         return this;
@@ -120,10 +108,10 @@ public class MyDetailsPage extends BaseSmartGaragePage {
 
     public MyDetailsPage updateProfile(String firstName, String lastName, String email, String phone) {
         return clickEditInfo()
-                .enterFirstName(firstName)
-                .enterLastName(lastName)
-                .enterEmail(email)
-                .enterPhone(phone)
+                .editFirstName(firstName)
+                .editLastName(lastName)
+                .editEmail(email)
+                .editPhone(phone)
                 .clickSaveInfo();
     }
 
@@ -133,5 +121,10 @@ public class MyDetailsPage extends BaseSmartGaragePage {
                 .enterNewPassword(newPassword)
                 .enterConfirmPassword(newPassword)
                 .clickSavePassword();
+    }
+
+    public String getFullName(){
+        waitForElementToBeVisible(fullNameText);
+        return fullNameText.getText();
     }
 }
