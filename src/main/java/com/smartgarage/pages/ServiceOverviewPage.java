@@ -1,16 +1,10 @@
 package com.smartgarage.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
-
 public class ServiceOverviewPage extends BaseSmartGaragePage {
-
-    @FindBy(id = "servicesTable")
-    private WebElement servicesTable;
 
     @FindBy(id = "addServiceButton")
     private WebElement addServiceButton;
@@ -20,6 +14,10 @@ public class ServiceOverviewPage extends BaseSmartGaragePage {
 
     @FindBy(css = "tr input[name='servicePrice']")
     private WebElement newServicePriceField;
+
+    private final By saveNewServiceLink = By.cssSelector("#saveButtonContainer a");
+
+    private final By TABLE_ROWS = By.cssSelector("#servicesTable tr[data-service-id]");
 
     public ServiceOverviewPage() {
         super("");
@@ -40,35 +38,56 @@ public class ServiceOverviewPage extends BaseSmartGaragePage {
         newServicePriceField.sendKeys(price);
     }
 
-    public WebElement getServiceRowById(int serviceId) {
-        return servicesTable.findElement(By.cssSelector("tr[data-service-id='" + serviceId + "']"));
+    public WebElement getServiceRowById(String serviceId) {
+        By rowBy = By.cssSelector("tr[data-service-id='" + serviceId + "']");
+        return driver().findElement(rowBy);
     }
 
-    public String getServiceName(int serviceId) {
-        WebElement element = getServiceRowById(serviceId).findElement(By.id("service-name-" + serviceId));
-        waitForElementToBeVisible(element);
-        return element.getText();
+    public String getServiceRowByName(String name) {
+        By newName = By.id("service-name-" + name);
+        return driver().getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(newName))
+                .getText().trim();
     }
 
-    public String getServicePrice(int serviceId) {
+    public String findNewServiceId(String name) {
+        By rowBy = By.xpath("//tr[@data-service-id][td[normalize-space()='" + name + "']]");
+        WebElement row = driverWait().until(ExpectedConditions.presenceOfElementLocated(rowBy));
+        return row.getAttribute("data-service-id");
+    }
+
+    public void clickSaveNewService() {
+        WebElement save = driver().findElement(saveNewServiceLink);
+        waitForElementToBeClickable(save);
+        save.click();
+    }
+
+    public void deleteServiceById(String serviceId) {
+        By deleteBy = By.id("delete-" + serviceId);
+        WebElement deleteBtn = driver().findElement(deleteBy);
+        waitForElementToBeClickable(deleteBtn);
+        deleteBtn.click();
+        driver().switchTo().alert().accept();
+    }
+
+    public String getServicePrice(String serviceId) {
         By span = By.cssSelector("#service-price-" + serviceId + " span");
-        WebElement priceSpan = driverWait().until(ExpectedConditions.visibilityOfElementLocated(span));
-        return priceSpan.getText();
+        WebElement price = driverWait().until(ExpectedConditions.visibilityOfElementLocated(span));
+        return price.getText();
     }
 
-    public void clickEdit(int serviceId) {
+    public void clickEdit(String serviceId) {
         WebElement editBtn = getServiceRowById(serviceId).findElement(By.id("edit-" + serviceId));
         waitForElementToBeClickable(editBtn);
         editBtn.click();
     }
 
-    public void clickSave(int serviceId) {
+    public void clickSave(String serviceId) {
         WebElement saveBtn = getServiceRowById(serviceId).findElement(By.id("save-" + serviceId));
         waitForElementToBeClickable(saveBtn);
         saveBtn.click();
     }
 
-    public void enterPriceForService(int serviceId, String newPrice) {
+    public void enterPriceForService(String serviceId, String newPrice) {
         WebElement priceInput = driver().findElement(
                 By.cssSelector("tr[data-service-id='" + serviceId + "'] input[type='number']")
         );
@@ -77,12 +96,6 @@ public class ServiceOverviewPage extends BaseSmartGaragePage {
     }
 
     public int getServiceCount() {
-        return servicesTable.findElements(By.cssSelector("tr[data-service-id]")).size();
-    }
-
-    public void saveNewService() {
-        WebElement saveButton = driver().findElement(By.cssSelector("#saveButtonContainer button"));
-        waitForElementToBeClickable(saveButton);
-        saveButton.click();
+        return driver().findElements(TABLE_ROWS).size();
     }
 }
