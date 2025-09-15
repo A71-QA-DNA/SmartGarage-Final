@@ -1,6 +1,8 @@
 package com.testframework.core;
 
+import com.github.javafaker.Faker;
 import com.smartgarage.pages.*;
+import com.smartgarage.pages.sections.NavigationSection;
 import com.testframework.Driver;
 import com.testframework.DriverManager;
 import org.junit.jupiter.api.AfterAll;
@@ -14,13 +16,23 @@ public abstract class BaseWebTest {
     protected AdminPanelPage adminPanelPage;
     protected ServicesPage servicesPage;
     protected ServiceOverviewPage serviceOverviewPage;
+    protected CreateCustomerPage createCustomerPage;
+    protected CreateEmployeePage createEmployeePage;
+    protected CreateMechanicPage createMechanicPage;
+    protected NavigationSection navigationSection;
+    protected Faker faker;
 
     @BeforeEach
     public void before() {
         loginPage = new LoginPage();
+        faker = new Faker();
         adminPanelPage = new AdminPanelPage();
         servicesPage = new ServicesPage();
         serviceOverviewPage = new ServiceOverviewPage();
+        createCustomerPage = new CreateCustomerPage();
+        createEmployeePage = new CreateEmployeePage();
+        createMechanicPage = new CreateMechanicPage();
+        navigationSection = new NavigationSection();
     }
 
     public static Driver driver() {
