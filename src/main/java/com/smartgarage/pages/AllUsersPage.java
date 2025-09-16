@@ -5,8 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AllUsersPage extends BaseSmartGaragePage {
 
@@ -68,12 +70,31 @@ public class AllUsersPage extends BaseSmartGaragePage {
         }
     }
 
-    public void typeVisitDateFrom(String from) {
-        clearAndType(visitFromInput, from == null ? "" : from);
+    public void typeVisitDateFrom(LocalDate from) {
+        clearAndType(visitFromInput, from == null ? "" : from.toString());
     }
 
-    public void typeVisitDateTo(String to) {
-        clearAndType(visitToInput, to == null ? "" : to);
+    public void typeVisitDateTo(LocalDate to) {
+        clearAndType(visitToInput, to == null ? "" : to.toString());
+    }
+
+    public List<String> getVehicleBrands() {
+        List<WebElement> result = driver()
+                .findElements(By.xpath(".//div[contains(@class,'column')][4]//li"));
+        return result.stream()
+                .map(e -> e.getText().trim())
+                .filter(s -> !s.isBlank())
+                .collect(Collectors.toList());
+    }
+
+    public List<LocalDate> getServiceDates() {
+        List<WebElement> dateLis = driver().findElements(By.xpath(
+                ".//div[contains(@class,'column')][5]//li[not(./ul)]"));
+        return dateLis.stream()
+                .map(e -> e.getText().trim())
+                .filter(s -> !s.isBlank())
+                .map(LocalDate::parse)
+                .collect(Collectors.toList());
     }
 
     public void selectSortBy(String valueOrEmpty) {
@@ -83,10 +104,6 @@ public class AllUsersPage extends BaseSmartGaragePage {
         } else {
             sel.selectByValue(valueOrEmpty);
         }
-    }
-
-    public void selectSortDirectionAsc(boolean asc) {
-        new Select(sortDirSelect).selectByValue(asc ? "asc" : "desc");
     }
 
     public void clickSearch() {
