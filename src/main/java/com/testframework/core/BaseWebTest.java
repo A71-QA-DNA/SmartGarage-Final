@@ -6,6 +6,8 @@ import com.smartgarage.pages.sections.NavigationSection;
 import com.testframework.Driver;
 import com.testframework.DriverManager;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -46,8 +48,8 @@ public abstract class BaseWebTest {
         return driver().getDriverWait();
     }
 
-    @AfterAll
-    public static void afterAll() {
+    @AfterEach
+    public void afterEach() {
         driver().close();
     }
 }
