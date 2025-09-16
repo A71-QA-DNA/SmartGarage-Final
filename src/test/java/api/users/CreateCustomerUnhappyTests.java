@@ -7,6 +7,7 @@ import com.testframework.core.BaseApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Epic("REST API")
 @Feature("Users – CRUD Operations")
+@Tag("integration")
+@Tag("users-api")
 public class CreateCustomerUnhappyTests extends BaseApiTest {
     private final CustomerApi customerApi = new CustomerApi();
     public final Faker faker = new Faker();

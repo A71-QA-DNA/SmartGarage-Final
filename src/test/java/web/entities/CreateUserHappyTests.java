@@ -1,17 +1,16 @@
 package web.entities;
 
-import com.github.javafaker.Faker;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
 import com.testframework.core.BaseWebTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Epic;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Epic("Entities")
+@Tag("system")
 public class CreateUserHappyTests extends BaseWebTest {
 
     private CustomerApi  customerApi;

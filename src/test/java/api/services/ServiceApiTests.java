@@ -15,6 +15,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 @Epic("Service API")
 @Feature("CRUD & Filtering")
+@Tag( "integration")
+@Tag("services-api")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceApiTests extends BaseApiTest {
 

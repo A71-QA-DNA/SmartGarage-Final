@@ -22,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Vehicle API")
 @Feature("Validation & CRUD")
-@Tag("vehicle_api")
+@Tag("integration")
+@Tag("vehicles-api")
 public class VehiclesApiTests extends BaseApiTest {
 
     private static VehicleApi api;

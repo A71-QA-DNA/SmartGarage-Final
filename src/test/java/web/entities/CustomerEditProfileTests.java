@@ -3,12 +3,14 @@ package web.entities;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
 import com.testframework.core.BaseWebTest;
+import io.qameta.allure.Epic;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-@Slf4j
+@Epic("Private")
+@Epic("Entities")
+@Tag("system")
 public class CustomerEditProfileTests extends BaseWebTest {
 
     private CustomerApi customerApi;
