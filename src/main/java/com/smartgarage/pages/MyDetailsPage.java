@@ -43,89 +43,62 @@ public class MyDetailsPage extends BaseSmartGaragePage {
         super("");
     }
 
-    public MyDetailsPage clickChoosePhoto() {
+    public void clickChoosePhoto() {
+        waitForElementToBeClickable(choosePhotoButton);
         choosePhotoButton.click();
-        return this;
     }
 
-    public MyDetailsPage clickEditInfo() {
+    public void clickEditInfo() {
+        waitForElementToBeClickable(editInfoButton);
         editInfoButton.click();
-        return this;
     }
 
-    public MyDetailsPage editFirstName(String firstName) {
+    public void editFirstName(String firstName) {
         firstNameField.clear();
         firstNameField.sendKeys(firstName);
-        return this;
     }
 
-    public MyDetailsPage editLastName(String lastName) {
+    public void editLastName(String lastName) {
         lastNameField.clear();
         lastNameField.sendKeys(lastName);
-        return this;
     }
 
-    public MyDetailsPage editEmail(String email) {
+    public void editEmail(String email) {
         emailField.clear();
         emailField.sendKeys(email);
-        return this;
     }
 
-    public MyDetailsPage editPhone(String phone) {
+    public void editPhone(String phone) {
         phoneField.clear();
         phoneField.sendKeys(phone);
-        return this;
     }
 
-    public MyDetailsPage clickSaveInfo() {
+    public void clickSaveInfo() {
         saveInfoButton.click();
-        return this;
     }
 
-    public MyDetailsPage clickChangePassword() {
+    public void clickChangePassword() {
         waitForElementToBeClickable(changePasswordButton);
         changePasswordButton.click();
-        return this;
     }
 
-    public MyDetailsPage enterOldPassword(String oldPassword) {
+    public void enterOldPassword(String oldPassword) {
         oldPasswordField.clear();
         oldPasswordField.sendKeys(oldPassword);
-        return this;
     }
 
-    public MyDetailsPage enterNewPassword(String newPassword) {
+    public void enterNewPassword(String newPassword) {
         newPasswordField.clear();
         newPasswordField.sendKeys(newPassword);
-        return this;
     }
 
-    public MyDetailsPage enterConfirmPassword(String confirmPassword) {
+    public void enterConfirmPassword(String confirmPassword) {
         confirmPasswordField.clear();
         confirmPasswordField.sendKeys(confirmPassword);
-        return this;
     }
 
-    public MyDetailsPage clickSavePassword() {
+    public void clickSavePassword() {
         savePasswordButton.click();
-        return this;
-    }
-
-    public MyDetailsPage updateProfile(String firstName, String lastName, String email, String phone) {
-        return clickEditInfo()
-                .editFirstName(firstName)
-                .editLastName(lastName)
-                .editEmail(email)
-                .editPhone(phone)
-                .clickSaveInfo();
-    }
-
-    public MyDetailsPage changePassword(String oldPassword, String newPassword) {
-        return clickChangePassword()
-                .enterOldPassword(oldPassword)
-                .enterNewPassword(newPassword)
-                .enterConfirmPassword(newPassword)
-                .clickSavePassword();
     }
 
     public String getFullName(){
