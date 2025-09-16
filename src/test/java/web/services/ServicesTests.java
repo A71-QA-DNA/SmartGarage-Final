@@ -1,6 +1,8 @@
 package web.services;
 
 import com.testframework.core.BaseWebTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,6 +10,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Entities")
+@Feature("Each service must have a price")
+@Tag("system")
 public class ServicesTests extends BaseWebTest {
 
     private static final String TEST_SERVICE_ID = "25";

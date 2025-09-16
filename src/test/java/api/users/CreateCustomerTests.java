@@ -10,6 +10,10 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("REST API")
+@Feature("Users – CRUD Operations")
+@Tag("integration")
+@Tag("users-api")
 public class CreateCustomerTests extends BaseApiTest {
     private final CustomerApi customerApi = new CustomerApi();
     private final Faker faker = new Faker();

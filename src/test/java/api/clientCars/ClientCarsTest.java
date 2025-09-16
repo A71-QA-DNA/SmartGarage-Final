@@ -7,10 +7,7 @@ import com.smartgarage.api.models.ClientCarResponse;
 import com.testframework.core.BaseApiTest;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -22,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Client Cars API")
 @Feature("CRUD & Validation")
+@Tag("integration")
+@Tag("client-cars-api")
 public class ClientCarsTest extends BaseApiTest {
 
     private ClientCarsApi clientCarsApi;

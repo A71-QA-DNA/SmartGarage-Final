@@ -6,6 +6,7 @@ import com.smartgarage.api.models.Users;
 import com.testframework.core.BaseApiTest;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Epic("REST API")
 @Feature("Employee Search– username/email/phone/VIN/license plate")
+@Tag("integration")
+@Tag("employee-search")
 public class EmployeesSearchUnhappyTests extends BaseApiTest {
     private final CustomerApi customerApi = new CustomerApi();
     private final Faker faker = new Faker();
