@@ -1,6 +1,7 @@
 package com.smartgarage.api.models;
 
 
+import com.google.gson.annotations.SerializedName;
 import lombok.*;
 
 @Data
@@ -9,8 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Brand {
 
-    @SuppressWarnings("id")
+    @SerializedName("id")
     private int id;
-    @SuppressWarnings("name")
+    @SerializedName("name")
     private String name;
 }

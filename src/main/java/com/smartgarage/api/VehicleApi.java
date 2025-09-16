@@ -17,7 +17,9 @@ public class VehicleApi extends BaseApiService {
     }
 
     public VehicleResponse createVehicleAndGetById(VehicleRequest body) {
-       return post("", body).then().statusCode(200)
+        return post("", body)
+                .then()
+                .statusCode(200)
                 .extract()
                 .response().
                 as(VehicleResponse.class);
@@ -33,5 +35,9 @@ public class VehicleApi extends BaseApiService {
 
     public Response deleteVehicleById(int vehicleId) {
         return delete("/" + vehicleId);
+    }
+
+    public Response getAllVehicles() {
+        return get("", null, null);
     }
 }
