@@ -3,10 +3,12 @@ package web.entities;
 import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
 import com.testframework.core.BaseWebTest;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 public class CustomerEditProfileTests extends BaseWebTest {
 
     private CustomerApi customerApi;
@@ -56,6 +58,7 @@ public class CustomerEditProfileTests extends BaseWebTest {
         myDetailsPage.clickEditInfo();
         myDetailsPage.editFirstName(firstName);
         myDetailsPage.clickSaveInfo();
+        driver().navigate().refresh();
         assertTrue(myDetailsPage.getFullName().contains(firstName));
     }
 
@@ -67,6 +70,7 @@ public class CustomerEditProfileTests extends BaseWebTest {
         myDetailsPage.clickEditInfo();
         myDetailsPage.editLastName(lastName);
         myDetailsPage.clickSaveInfo();
+        driver().navigate().refresh();
         assertTrue(myDetailsPage.getFullName().contains(lastName));
     }
 
@@ -78,6 +82,7 @@ public class CustomerEditProfileTests extends BaseWebTest {
         myDetailsPage.clickEditInfo();
         myDetailsPage.editEmail(email);
         myDetailsPage.clickSaveInfo();
+        driver().navigate().refresh();
         assertTrue(myDetailsPage.getEmail().contains(email));
     }
 
@@ -89,6 +94,7 @@ public class CustomerEditProfileTests extends BaseWebTest {
         myDetailsPage.clickEditInfo();
         myDetailsPage.editPhone(phone);
         myDetailsPage.clickSaveInfo();
+        driver().navigate().refresh();
         assertTrue(myDetailsPage.getPhone().contains(phone));
     }
 
@@ -97,10 +103,16 @@ public class CustomerEditProfileTests extends BaseWebTest {
     void editPassword() {
         newPassword = faker.internet().password(8, 10, true, true, true);
         navigationSection.clickMyDetailsButton();
-        myDetailsPage.changePassword(customerPassword, newPassword);
+        myDetailsPage.clickChangePassword();
+        myDetailsPage.enterOldPassword(customerPassword);
+        myDetailsPage.enterNewPassword(newPassword);
+        myDetailsPage.enterConfirmPassword(newPassword);
+        myDetailsPage.clickSavePassword();
+        driver().navigate().refresh();
         loginPage.logout();
         loginPage.navigate();
         loginPage.loginAs(originalCustomer.getUserName(), newPassword);
+        driver().navigate().refresh();
         assertTrue(homePage.getHeaderText().contains(SMART_HEADER));
     }
 }
