@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 @Epic("Service API")
 @Feature("CRUD & Filtering")
-@Tag( "integration")
+@Tag("integration")
 @Tag("services-api")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceApiTests extends BaseApiTest {
@@ -116,5 +116,17 @@ public class ServiceApiTests extends BaseApiTest {
 
         createdId = null;
         createdName = null;
+    }
+
+    @Test
+    @Story("Filter Services By Name")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("GET services by name")
+    public void filterServicesByName() {
+        ServiceResponse service = createService(100);
+        ensureBaseService(service.getId());
+        ServiceResponse[] serviceResponses = api.filterServiceByName(service.getName()).as(ServiceResponse[].class);
+        Assertions.assertEquals(service.getName(), serviceResponses[0].getName(), "Service name should match");
+
     }
 }
