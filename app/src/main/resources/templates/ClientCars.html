@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{FragmentForm.html :: head}"></form>
+<body>
+<div class="site-container">
+    <form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+    <form th:replace="~{FragmentForm.html :: header-container}"></form>
+    <div class="theme-page padding-bottom-70">
+        <div class="row gray full-width page-header vertical-align-table">
+            <div class="row full-width padding-top-bottom-50 vertical-align-cell">
+                <div class="row">
+                    <div class="page-header-left">
+                        <h1>CLIENT CARS</h1>
+                    </div>
+                    <div class="page-header-right">
+                        <div class="bread-crumb-container">
+                            <label>YOU ARE HERE:</label>
+                            <ul class="bread-crumb">
+                                <li>
+                                    <a title="Home" href="home.html" th:href="@{/}">
+                                        HOME
+                                    </a>
+                                </li>
+                                <li class="separator">
+                                    &#47;
+                                </li>
+                                <li>
+                                    CLIENT CARS
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-form-container margin-top-70" style="margin-top: 35px !important;">
+            <div class="custom-form-header">
+                <h2 class="box-header" style="text-align: center; margin-bottom: 35px;">YOU WANT TO ADD CLIENT CAR? DO
+                    IT!</h2>
+            </div>
+
+            <form class="client-car-form" method="post" th:action="@{/client-cars}" th:object="${clientCarDtoMvc}">
+                <div class="custom-form-row">
+                    <label for="vin">VIN</label>
+                    <input id="vin" type="text" th:field="*{vin}" placeholder="Put the VIN here..." required>
+                    <div class="error-message" th:if="${#fields.hasErrors('vin')}" th:errors="*{vin}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="licensePlate">LICENSE PLATE</label>
+                    <input id="licensePlate" type="text" th:field="*{license_plate}" placeholder="Put the license plate here..." required>
+                    <div class="error-message" th:if="${#fields.hasErrors('license_plate')}" th:errors="*{license_plate}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="owner">OWNER</label>
+                    <input id="owner" type="text" th:field="*{owner}" placeholder="Owner..." required>
+                    <div class="error-message" th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="brand">BRAND</label>
+                    <select id="brand" name="brand" th:field="*{brandName}" required>
+                        <option value="">Select Brand</option>
+                        <option th:each="brand : ${allVehicleBrands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+                    </select>
+                    <div class="error-message" th:if="${#fields.hasErrors('brandName')}" th:errors="*{brandName}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="make">MAKE</label>
+                    <input id="make" type="text" th:field="*{modelName}" placeholder="Put the make here..." required>
+                    <div class="error-message" th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="engineType">ENGINE TYPE</label>
+                    <input id="engineType" type="text" th:field="*{engineType}" placeholder="Put the engine here..." required>
+                    <div class="error-message" th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}"></div>
+                </div>
+
+                <div class="custom-form-row">
+                    <label for="yearOfCreation">YEAR OF CREATION</label>
+                    <input id="yearOfCreation"
+                           type="text"
+                           name="year"
+                           th:value="${year != 0} ? ${year} : ''"
+                           placeholder="Put the year here..."
+                           required>
+                    <div class="error-message" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="custom-form-row">
+                        <button type="submit">ADD CLIENT CAR</button>
+                    </div>
+                </div>
+            </form>
+
+            <form class="client-car-form-search" action="#" method="get">
+                <div class="input-container-search">
+                    <div class="custom-form-row-inline">
+                        <label style="font-weight: bold; margin-top: 20px; margin-bottom: 4px;" for="search">SEARCH</label>
+                        <input id="search" name="searchTerm" type="text" placeholder="Search by username or first name..." th:value="${searchTerm}"
+                        style="margin-top: 5px; margin-bottom: 10px; height: 15px; width: 190.5px; border-radius: 4px">
+                    </div>
+
+                    <div class="custom-form-row-inline">
+                        <label style="font-weight: bold; margin-top: 20px; margin-bottom: 4px;" for="sort-by">SORT BY</label>
+                        <select id="sort-by" name="sortBy"
+                                th:value="${sortBy}"
+                                style="margin-top: 5px; margin-bottom: 10px; height: 40px; width: 223px; border-radius: 4px">
+                            <option value="" th:selected="${sortBy == null}">Sort By</option>
+                            <option value="owner.firstName" th:selected="${sortBy == 'owner.firstName'}">Owner First Name</option>
+                            <option value="owner.username" th:selected="${sortBy == 'owner.username'}">Owner Username</option>
+                        </select>
+                    </div>
+
+                    <div class="custom-form-row-inline">
+                        <label style="font-weight: bold; margin-top: 20px; margin-bottom: 4px;" for="order">ORDER</label>
+                        <select id="order" name="order" th:value="${order}"
+                        style="margin-top: 5px; margin-bottom: 10px; height: 40px; width: 177px; border-radius: 4px">
+                        <option value="asc" th:selected="${order == 'asc'}">ASCENDING</option>
+                        <option value="desc" th:selected="${order == 'desc'}">DESCENDING</option>
+                        </select>
+                    </div>
+                    <div class="custom-form-row-inline">
+                        <button type="submit" class="modern-button"
+                                style="height: 38px; width: 38px; margin-top: 45px; margin-bottom: 13px;">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+            <div class="custom-car-list-container">
+                <div class="custom-car-list-header" style="height: 55px; text-align: center;">
+                    <div class="custom-car-list-column">VIN</div>
+                    <div class="custom-car-list-column">License Plate</div>
+                    <div class="custom-car-list-column">Owner</div>
+                    <div class="custom-car-list-column">Brand</div>
+                    <div class="custom-car-list-column">Make</div>
+                    <div class="custom-car-list-column">Engine Type</div>
+                    <div class="custom-car-list-column">Year of Creation</div>
+                    <div class="custom-car-list-column">Actions</div>
+                </div>
+                <div class="custom-car-list-items">
+                    <div th:each="clientCar, iterStat : ${clientCars}"
+                         th:class="${iterStat.index % 2 == 0} ? 'vehicle-item white custom-car-list-row' : 'vehicle-item gray custom-car-list-row'">
+                        <div class="custom-car-list-column" th:id="'vin-' + ${clientCar.id}" th:text="${clientCar.vin}" style="height: 20px !important;">VIN</div>
+
+                        <div class="custom-car-list-column" th:id="'licensePlate-' + ${clientCar.id}" th:text="${clientCar.licensePlate}" style="height: 20px !important;">License Plate</div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.owner.username}">Owner Username</div>
+
+                        <div class="custom-car-list-column">
+                            <img th:src="@{'/images/audi-logo.png'}" th:if="${clientCar.vehicle.brand.name == 'Audi'}" alt="Audi logo"
+                                 class="brand-logo" style="width: 25px; height: auto; margin-right: 8px;">
+                            <img th:src="@{'/images/vw-logo.jpg'}" th:if="${clientCar.vehicle.brand.name == 'Volkswagen'}" alt="Volkswagen logo"
+                                 class="brand-logo" style="width: 25px; height: auto; margin-right: 8px;">
+                            <img th:src="@{'/images/porsche-logo.jpg'}" th:if="${clientCar.vehicle.brand.name == 'Porsche'}" alt="Porsche logo"
+                                 class="brand-logo" style="width: 25px; height: auto; margin-right: 8px;">
+
+                            <!-- Текст за името на марката -->
+                            <span th:text="${clientCar.vehicle.brand.name}"></span>
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.model.name}">Make</div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.engineType.name}">Engine Type</div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.year.year}">Year of Creation</div>
+
+                        <div class="custom-car-list-column" style="display: flex; gap: 10px; align-items: center;">
+                            <button th:id="'edit-' + ${clientCar.id}" th:onclick="'editClientCar(' + ${clientCar.id} + ')'">Edit</button>
+                            <button th:id="'save-' + ${clientCar.id}" style="display:none;" th:onclick="'saveClientCar(' + ${clientCar.id} + ')'">Save</button>
+                            <form th:action="@{/client-cars/{clientCarId}/delete(clientCarId=${clientCar.id})}" method="get" style="margin: 0;">
+                            <button th:id="'delete-' + ${clientCar.id}" type="submit">Delete</button>
+                        </form>
+
+                            <a th:id="'add-services-' + ${clientCar.id}" th:href="@{'/client-cars/' + ${clientCar.id} + '/services'}" class="btn btn-primary">Add Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination" th:if="${totalPages > 1}">
+                <ul>
+                    <li th:if="${currentPage > 0}">
+                        <a th:href="@{/client-cars(page=${currentPage - 1}, searchTerm=${searchTerm}, sortBy=${sortBy}, order=${order})}">
+                            Previous
+                        </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                        <a th:href="@{/client-cars(page=${i}, searchTerm=${searchTerm}, sortBy=${sortBy}, order=${order})}"
+                           th:text="${i + 1}" th:class="${i == currentPage} ? 'active' : ''">
+                        </a>
+                    </li>
+                    <li th:if="${currentPage < totalPages - 1}">
+                        <a th:href="@{/client-cars(page=${currentPage + 1}, searchTerm=${searchTerm}, sortBy=${sortBy}, order=${order})}">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <form th:replace="~{FragmentForm.html :: footer-and-copyright}"></form>
+</div>
+<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+<div class="background-overlay"></div>
+<!--js-->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+<!--slider revolution-->
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ba-bbq.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-ui-1.12.1.custom.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ui.touch-punch.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.isotope.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.easing.1.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.touchSwipe.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.transit.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.hint.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.costCalculator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.qtip.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.blockUI.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.imagesloaded-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        console.log("Document is ready!");
+
+        $("#owner").autocomplete({
+            source: function(request, response) {
+                console.log("Autocomplete triggered with term: ", request.term);
+
+                $.ajax({
+                    url: "/client-cars/usernames",
+                    type: "GET",
+                    data: {
+                        term: request.term
+                    },
+                    success: function(data) {
+                        console.log("Autocomplete data received: ", data);
+                        response(data);
+                    },
+                    error: function(xhr) {
+                        console.error("Autocomplete error: ", xhr);
+                    }
+                });
+            },
+            minLength: 2
+        });
+    });
+</script>
+<script>
+    function editClientCar(carId) {
+        const vinElement = document.querySelector("#vin-" + carId);
+        const licensePlateElement = document.querySelector("#licensePlate-" + carId);
+        const saveButton = document.querySelector("#save-" + carId);
+        const editButton = document.querySelector("#edit-" + carId);
+        const deleteButton = document.querySelector("#delete-" + carId);
+        const addServicesButton = document.querySelector("#add-services-" + carId);
+
+        vinElement.innerHTML = `<input type="text" value="${vinElement.textContent}" id="input-vin-${carId}" style="height: 1px !important;"/>`;
+        licensePlateElement.innerHTML = `<input type="text" value="${licensePlateElement.textContent}" id="input-licensePlate-${carId}" style="height: 1px !important;"/>`;
+
+        saveButton.style.display = 'inline-block';
+        editButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+        addServicesButton.style.display = 'none';
+    }
+
+    function saveClientCar(carId) {
+        const vinValue = document.querySelector("#input-vin-" + carId).value;
+        const licensePlateValue = document.querySelector("#input-licensePlate-" + carId).value;
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = `/client-cars/edit/${carId}`;
+
+        const vinInput = document.createElement('input');
+        vinInput.type = 'hidden';
+        vinInput.name = 'vin';
+        vinInput.value = vinValue;
+        form.appendChild(vinInput);
+
+        const licensePlateInput = document.createElement('input');
+        licensePlateInput.type = 'hidden';
+        licensePlateInput.name = 'license_plate';
+        licensePlateInput.value = licensePlateValue;
+        form.appendChild(licensePlateInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+</body>
+</html>

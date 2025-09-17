@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{FragmentForm.html :: head}"></form>
+	<body>
+		<div class="site-container">
+			<form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+			<form th:replace="~{FragmentForm.html :: header-container}"></form>
+			<div class="theme-page padding-bottom-70">
+				<div class="row gray full-width page-header vertical-align-table">
+					<div class="row full-width padding-top-bottom-50 vertical-align-cell">
+						<div class="row">
+							<div class="page-header-left">
+								<h1>OUR SERVICES</h1>
+							</div>
+							<div class="page-header-right">
+								<div class="bread-crumb-container">
+									<label>YOU ARE HERE:</label>
+									<ul class="bread-crumb">
+										<li>
+											<a title="Home" th:href="@{/}" href="index.html">
+												HOME
+											</a>
+										</li>
+										<li class="separator">
+											&#47;
+										</li>
+										<li>
+											OUR SERVICES
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="row">
+						<ul class="services-list clearfix padding-top-70">
+							<li>
+								<a href="service_engine_diagnostics.html" th:href="@{/services/engine-diagnostics}" title="Engine Diagnostics">
+									<img src="../static/images/samples/390x260/image_01.jpg" th:src="@{/images/samples/390x260/image_01.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_engine_diagnostics.html"  th:href="@{/services/engine-diagnostics}" title="Engine Diagnostics">ENGINE DIAGNOSTICS<span class="template-arrow-menu"></span></a></h4>
+							</li>
+							<li>
+								<a href="service_lube_oil_filters.html" th:href="@{/services/lube-oil-filters}" title="Lube, Oil and Filters">
+									<img src="../static/images/samples/390x260/image_02.jpg" th:src="@{/images/samples/390x260/image_02.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_lube_oil_filters.html" th:href="@{/services/lube-oil-filters}"  title="Lube, Oil and Filters">LUBE, OIL AND FILTERS<span class="template-arrow-menu"></span></a></h4>
+							</li>
+							<li>
+								<a href="service_belts_hoses.html" th:href="@{/services/belts-hoses}" title="Belts and Hoses">
+									<img src="../static/images/samples/390x260/image_03.jpg" th:src="@{/images/samples/390x260/image_03.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_belts_hoses.html" th:href="@{/services/belts-hoses}" title="Belts and Hoses">BELTS AND HOSES<span class="template-arrow-menu"></span></a></h4>
+							</li>
+							<li>
+								<a href="service_air_conditioning.html" th:href="@{/services/air-conditioning}" title="Air Conditioning">
+									<img src="../static/images/samples/390x260/image_04.jpg" th:src="@{/images/samples/390x260/image_04.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_air_conditioning.html" th:href="@{/services/air-conditioning}" title="Air Conditioning">AIR CONDITIONING<span class="template-arrow-menu"></span></a></h4>
+							</li>
+							<li>
+								<a href="service_brake_repair.html" th:href="@{/services/brake-repair}" title="Brake Repair">
+									<img src="../static/images/samples/390x260/image_05.jpg" th:src="@{/images/samples/390x260/image_05.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_brake_repair.html" th:href="@{/services/brake-repair}" title="Brake Repair">BRAKE REPAIR<span class="template-arrow-menu"></span></a></h4>
+							</li>
+							<li>
+								<a href="service_tire_wheel.html" th:href="@{/services/tire-wheel}" title="Tire and Wheel Services">
+									<img src="../static/images/samples/390x260/image_06.jpg" th:src="@{/images/samples/390x260/image_06.jpg}" alt="">
+								</a>
+								<h4 class="box-header"><a href="service_tire_wheel.html" th:href="@{/services/tire-wheel}" title="Tire and Wheel Services">TIRE AND WHEEL SERVICES<span class="template-arrow-menu"></span></a></h4>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<form th:replace="~{FragmentForm.html :: footer-and-copyright}"></form>
+		</div>
+		<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+		<div class="background-overlay"></div>
+		<!--js-->
+		<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+		<!--slider revolution-->
+		<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+		<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.ba-bbq.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery-ui-1.12.1.custom.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.ui.touch-punch.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.isotope.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.easing.1.4.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.touchSwipe.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.transit.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.hint.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.costCalculator.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.qtip.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.blockUI.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.imagesloaded-packed.js}"></script>
+		<script type="text/javascript" th:src="@{/js/main.js}"></script>
+		<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+	</body>
+</html>

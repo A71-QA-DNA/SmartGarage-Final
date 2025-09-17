@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{FragmentForm.html :: head}"></form>
+<body>
+<div class="site-container">
+    <form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+    <form th:replace="~{FragmentForm.html :: header-container}"></form>
+    <div class="theme-page padding-bottom-70">
+        <div class="row gray full-width page-header vertical-align-table">
+            <div class="row full-width padding-top-bottom-50 vertical-align-cell">
+                <div class="row">
+                    <div class="page-header-left">
+                        <h1>CLIENT CAR</h1>
+                    </div>
+                    <div class="page-header-right">
+                        <div class="bread-crumb-container">
+                            <label>YOU ARE HERE:</label>
+                            <ul class="bread-crumb">
+                                <li>
+                                    <a title="Home" href="services.html" th:href="@{/services}">
+                                        SERVICES
+                                    </a>
+                                </li>
+                                <li class="separator">
+                                    &#47;
+                                </li>
+                                <li>
+                                    CLIENT CAR
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-form-container margin-top-70" style="margin-top: 35px !important;">
+            <div class="custom-form-header">
+                <h2 class="box-header" style="text-align: center; margin-bottom: 35px; font-weight: bold;">ADD SERVICE
+                    TO CLIENT CAR</h2>
+            </div>
+
+            <div class="custom-car-list-container">
+                <div class="custom-car-list-header" style="height: 55px; text-align: center;">
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">VIN
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">License Plate
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">Owner
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">Brand
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">Make
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">Engine Type
+                    </div>
+                    <div class="custom-car-list-column"
+                         style="display: grid;justify-content: center;align-content: center;">Year of Creation
+                    </div>
+                </div>
+
+                <div class="custom-car-list-items" style="border: 1px solid #f5f5f5">
+                    <div class="vehicle-item white custom-car-list-row">
+                        <div class="custom-car-list-column" th:id="'vin-' + ${clientCar.id}" th:text="${clientCar.vin}"
+                             style="height: 20px !important; text-align: center">VIN
+                        </div>
+
+                        <div class="custom-car-list-column" th:id="'licensePlate-' + ${clientCar.id}"
+                             th:text="${clientCar.licensePlate}" style="height: 20px !important; text-align: center">
+                            License Plate
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.owner.username}"
+                             style="text-align: center">Owner Username
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.brand.name}"
+                             style="text-align: center">Brand
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.model.name}"
+                             style="text-align: center">Make
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.engineType.name}"
+                             style="text-align: center">Engine Type
+                        </div>
+
+                        <div class="custom-car-list-column" th:text="${clientCar.vehicle.year.year}"
+                             style="text-align: center">Year of Creation
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            СЛАГАМЕ ТУК ORDER LIST-->
+            <div class="row page-margin-top">
+                <div class="column column-1-1">
+                    <h2 class="box-header" style="margin-bottom: 25px; font-size: 25px">ACTIVE ORDER SERVICES</h2>
+                    <div class="user-list">
+                        <div class="row vehicle-item gray">
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Order Number</div>
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Date of Service</div>
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Order Status</div>
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Service Name</div>
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Service Price BGN</div>
+                            <div class="column column-1-6" style="font-weight: bold; font-size: 14px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">Actions</div>
+                        </div>
+                    </div>
+
+                    <div class="user-list" style="border: 1px solid #f5f5f5">
+                        <div th:each="order, iterStat : ${clientCarOrders}"
+                             th:class="${iterStat.index % 2 == 0} ? 'vehicle-item white' : 'vehicle-item gray'">
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;" th:text="${order.getOrder().id}">Order ID</div>
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;" th:text="${order.serviceDate}">Service Date</div>
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;" th:text="${#strings.replace(order.getOrder().getStatus(), '_', ' ')}">Order Status</div>
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;" th:text="${order.getService().name}">Service Name</div>
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;" th:text="${order.getCalculatedPrice()}">Service Price BGN</div>
+                            <div class="column column-1-6" style="font-size: 13px; text-align: center; vertical-align: middle; display: flex; align-items: center; justify-content: center;">
+                                <form th:action="@{/client-cars/{clientCarId}/services/delete(clientCarId=${clientCar.id})}" method="post" onsubmit="return confirmDelete();">
+                                    <input type="hidden" name="serviceLogId" th:value="${order.id}" />
+                                    <button class="more simple" type="submit" style="font-size: 13px; padding: 2px 10px">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div th:if="${clientCarOrders == null || clientCarOrders.isEmpty()}">
+                            <p style="text-align: center">No orders with status "Not Started". You can open a new one!</p>
+                        </div>
+                    </div>
+
+                    <form th:action="@{/client-cars/{clientCarId}/services(clientCarId=${clientCar.id})}" method="post">
+                        <div style="display: flex; align-items: center; justify-content: flex-start; max-width: 100%; margin-top: 30px">
+                            <div style="display: flex; align-items: flex-start; margin-right: 20px; flex-direction: column">
+                                <label for="repairService" style="margin-bottom: 10px; font-weight: bold">REPAIR SERVICE</label>
+                                <input id="repairService" type="text" name="repairService" placeholder="Repair Service..." required
+                                       style="width: 300px; border-radius: 4px; height: 15px">
+                                <div th:if="${errorMessage}" style="color: red; margin-top: 10px;" th:text="${errorMessage}"></div>
+                            </div>
+                            <div class="button-container">
+                                <div class="custom-form-row" style="margin-top: 8px">
+                                    <button class="more simple" style="font-size: 14px; padding: 5px 10px" type="submit">Add Service</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <form th:replace="~{FragmentForm.html :: footer-and-copyright}"></form>
+</div>
+<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+<div class="background-overlay"></div>
+<!--js-->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+<!--slider revolution-->
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ba-bbq.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-ui-1.12.1.custom.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ui.touch-punch.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.isotope.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.easing.1.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.touchSwipe.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.transit.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.hint.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.costCalculator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.qtip.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.blockUI.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.imagesloaded-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("Document is ready!");
+
+        $("#repairService").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/client-cars/repairservices",
+                    type: "GET",
+                    data: {
+                        term: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    },
+                    error: function (xhr) {
+                        console.error("Autocomplete error: ", xhr);
+                    }
+                });
+            },
+            minLength: 2
+        });
+    });
+</script>
+<script>
+    function editClientCar(carId) {
+        const vinElement = document.querySelector("#vin-" + carId);
+        const licensePlateElement = document.querySelector("#licensePlate-" + carId);
+        const saveButton = document.querySelector("#save-" + carId);
+        const editButton = document.querySelector("#edit-" + carId);
+        const deleteButton = document.querySelector("#delete-" + carId);
+        const addServicesButton = document.querySelector("#add-services-" + carId);
+
+        vinElement.innerHTML = `<input type="text" value="${vinElement.textContent}" id="input-vin-${carId}" style="height: 1px !important;"/>`;
+        licensePlateElement.innerHTML = `<input type="text" value="${licensePlateElement.textContent}" id="input-licensePlate-${carId}" style="height: 1px !important;"/>`;
+
+        saveButton.style.display = 'inline-block';
+        editButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+        addServicesButton.style.display = 'none';
+    }
+
+    function saveClientCar(carId) {
+        const vinValue = document.querySelector("#input-vin-" + carId).value;
+        const licensePlateValue = document.querySelector("#input-licensePlate-" + carId).value;
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = `/client-cars/edit/${carId}`;
+
+        const vinInput = document.createElement('input');
+        vinInput.type = 'hidden';
+        vinInput.name = 'vin';
+        vinInput.value = vinValue;
+        form.appendChild(vinInput);
+
+        const licensePlateInput = document.createElement('input');
+        licensePlateInput.type = 'hidden';
+        licensePlateInput.name = 'license_plate';
+        licensePlateInput.value = licensePlateValue;
+        form.appendChild(licensePlateInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    $(document).ready(function() {
+        $('.delete-service-btn').on('click', function(e) {
+            e.preventDefault();
+
+            let serviceLogId = $(this).data('service-id');
+            let clientCarId = $(this).data('client-car-id');
+
+            $.ajax({
+                url: `/client-cars/${clientCarId}/services/delete`,
+                type: 'POST',
+                data: { serviceLogId: serviceLogId },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Error occurred while deleting the service log.');
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this service?");
+    }
+</script>
+
+</body>
+</html>
