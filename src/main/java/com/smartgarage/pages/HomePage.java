@@ -10,9 +10,4 @@ public class HomePage extends BaseSmartGaragePage {
     public HomePage() {
         super("");
     }
-
-    public String getHeaderText(){
-        waitForElementToBeVisible(smartGarageHeader);
-        return smartGarageHeader.getText();
-    }
 }
