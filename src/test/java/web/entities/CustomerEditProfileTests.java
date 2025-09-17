@@ -4,12 +4,13 @@ import com.smartgarage.api.CustomerApi;
 import com.smartgarage.api.models.Users;
 import com.testframework.core.BaseWebTest;
 import io.qameta.allure.Epic;
-import lombok.extern.slf4j.Slf4j;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 @Epic("Private")
 @Epic("Entities")
+@Feature("Customer Profile Edit")
 @Tag("system")
 public class CustomerEditProfileTests extends BaseWebTest {
 
@@ -22,7 +23,6 @@ public class CustomerEditProfileTests extends BaseWebTest {
     private String email;
     private String phone;
     private String newPassword;
-    private static final String SMART_HEADER = "SMART GARAGE TI";
 
     @BeforeEach
     void setupTestUser() {
@@ -33,7 +33,6 @@ public class CustomerEditProfileTests extends BaseWebTest {
         originalCustomer.setPhoneNumber(faker.number().digits(10));
         originalCustomer.setFirstName(faker.name().firstName());
         originalCustomer.setLastName(faker.name().lastName());
-        System.out.println(originalCustomer);
 
         Users created = customerApi.createCustomerAndExtract(originalCustomer);
         customerPassword = created.getPassword();
@@ -114,7 +113,6 @@ public class CustomerEditProfileTests extends BaseWebTest {
         loginPage.logout();
         loginPage.navigate();
         loginPage.loginAs(originalCustomer.getUserName(), newPassword);
-        driver().navigate().refresh();
-        assertTrue(homePage.getHeaderText().contains(SMART_HEADER));
+        assertTrue(navigationSection.myDetailsButtonIsVisible(), "My details section is not visible.");
     }
 }
