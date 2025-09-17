@@ -54,4 +54,13 @@ public class NavigationSection extends BaseSection {
         waitForElementToBeVisible(myDetailsButton);
         myDetailsButton.click();
     }
+
+    public boolean myDetailsButtonIsVisible() {
+        try {
+            waitForElementToBeVisible(myDetailsButton);
+            return myDetailsButton.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
