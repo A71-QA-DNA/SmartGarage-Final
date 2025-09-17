@@ -44,9 +44,28 @@ Key base classes:
 
 ---
 
+## ⚠️ Prerequisites
+
+Before you start, make sure you have the following installed:
+
+- [Docker](https://docs.docker.com/get-docker/) (for running the SmartGarage app + DB)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-0-13-later-archive-downloads.html) (runtime + compiler)
+- [Allure CLI](https://allurereport.org/docs/install/) (for test reporting)
+1) **Install Allure CLI** (one‑time):
+
+- macOS (Homebrew):
+  ```bash
+  brew install allure
+  allure --version
+  ```
+
+- Other OS options: see an Allure installation guide. (https://allurereport.org/docs/install/)
+> Once these are set up, you can build & run the app via Docker, run tests with Maven, and generate **Allure reports** for results visualization.
+
+---
+
 ## Run the SmartGarage app locally (Docker)
 
-⚠️ **Prerequisite:** You need to have [Docker](https://docs.docker.com/get-docker/) installed and running on your machine.
 This repo includes the application source so you can spin it up in Docker and then run the tests against it.
 ### Folder layout (place these at the **repo root**)
 ```
@@ -119,16 +138,6 @@ mvn clean test -Dgroups=integration -DexcludedGroups=services-api
 ---
 
 ## Running with Allure reports
-
-1) **Install Allure CLI** (one‑time):
-
-- macOS (Homebrew):
-  ```bash
-  brew install allure
-  allure --version
-  ```
-
-- Other OS options: see an Allure installation guide. (https://allurereport.org/docs/install/)
 
 1) **Execute tests and open the report**:
 

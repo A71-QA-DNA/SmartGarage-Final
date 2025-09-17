@@ -36,4 +36,10 @@ public class ServicesApi extends BaseApiService {
                 .extract()
                 .as(ServiceResponse.class);
     }
+
+    public Response filterServiceByName(String name) {
+        return get("/filter-sort", "name", name)
+                .then().extract().response();
+
+    }
 }

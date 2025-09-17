@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{FragmentForm.html :: head}"></form>
+<body>
+<div class="site-container">
+    <form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+    <form th:replace="~{FragmentForm.html :: header-container}"></form>
+    <div class="theme-page padding-bottom-66">
+        <div class="clearfix">
+            <div class="row full-width">
+                <div class="contact-map" id="map" data-scroll-wheel="0" data-draggable="0"></div>
+            </div>
+            <div class="row page-margin-top">
+                <div class="column column-1-1">
+                    <div class="row">
+                        <h2 class="box-header">BOOK AN APPOINTMENT</h2>
+                        <p class="description align-center">We are one of the leading auto repair shops serving
+                            customers in Tucson.<br>All mechanic services are performed by highly qualified mechanics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row page-margin-top">
+                <form class="contact-form cost-calculator-container" id="contact-form" method="post"
+                      action="contact_form/contact_form.php" th:action="@{/appointment}">
+                    <div class="row">
+                        <fieldset class="column column-1-3">
+                            <div class="cost-calculator-box clearfix">
+                                <label>VEHICLE YEAR</label>
+                                <input type="hidden" name="vehicle-year-label" value="VEHICLE YEAR">
+                                <div class="cost-slider-container">
+                                    <input id="vehicle-year" class="cost-slider-input" name="vehicle-year" type="number"
+                                           value="2008">
+                                    <div class="cost-slider" data-value="2008" data-step="1" data-min="1990"
+                                         data-max="2015" data-input="vehicle-year"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="column column-1-3">
+                            <div class="cost-calculator-box clearfix">
+                                <label>VEHICLE MAKE</label>
+                                <input type="hidden" name="vehicle-make-label" value="VEHICLE MAKE">
+                                <select name="vehicle-make" id="vehicle-make" class="cost-dropdown">
+                                    <option value="" selected="selected">Choose...</option>
+                                    <option value="Volkswagen">Volkswagen</option>
+                                    <option value="Porsche">Porsche</option>
+                                    <option value="Audi">Audi</option>
+                                </select>
+                                <input type="hidden" class="vehicle-make" name="vehicle-make-name" value="">
+                            </div>
+                        </fieldset>
+                        <fieldset class="column column-1-3">
+                            <div class="cost-calculator-box clearfix">
+                                <label>VEHICLE MILEAGE</label>
+                                <input type="hidden" name="vehicle-mileage-label" value="VEHICLE MILEAGE">
+                                <input id="vehicle-mileage" class="cost-slider-input big" name="vehicle-mileage"
+                                       type="number" value="" placeholder="Vehicle Mileage">
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="row page-margin-top">
+                        <fieldset class="column column-1-2">
+                            <div class="cost-calculator-box clearfix">
+                                <label>PREFFERED DATE OF APPOINTMENT</label>
+                                <input type="hidden" name="appointment-date-label"
+                                       value="PREFFERED DATE OF APPOINTMENT">
+                                <div class="datepicker-container">
+                                    <span class="ui-icon template-arrow-dropdown"></span>
+                                    <input id="appointment-date" class="cost-slider-datepicker big"
+                                           name="appointment-date" value="" placeholder="Preferred Date of Appointment">
+                                </div>
+                            </div>
+                            <div class="cost-calculator-box page-margin-top clearfix">
+                                <label>PREFFERED TIME FRAME</label>
+                                <input type="hidden" name="time-frame-label" value="PREFFERED TIME FRAME">
+                                <select name="time-frame" id="time-frame" class="cost-dropdown">
+                                    <option value="" selected="selected">Choose...</option>
+                                    <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                    <option value="12:00 PM - 01:00 PM">12:00 PM - 01:00 PM</option>
+                                    <option value="01:00 PM - 02:00 PM">01:00 PM - 02:00 PM</option>
+                                    <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                                    <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                                    <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                                    <option value="05:00 PM - 06:00 PM">05:00 PM - 06:00 PM</option>
+                                </select>
+                                <input type="hidden" class="time-frame" name="time-frame-name" value="">
+                            </div>
+                            <div class="cost-calculator-box page-margin-top clearfix">
+                                <label>SELECT SERVICES NEEDED</label>
+                                <ul class="checkboxes-list margin-top-20">
+                                    <li>
+                                        <input type="hidden" value="Air Conditioning" name="air-conditioning-label">
+                                        <input type="checkbox" data-value="Air Conditioning" value="Air Conditioning" name="services[]" class="cost-slider-input type-checkbox" id="air-conditioning">
+                                        <label for="air-conditioning" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Air Conditioning</label>
+                                    </li>
+                                    <li>
+                                        <input type="hidden" value="Brakes Repair" name="brakes-repair-label">
+                                        <input type="checkbox" data-value="Brakes Repair" value="Brakes Repair" name="services[]" class="cost-slider-input type-checkbox" id="brakes-repair">
+                                        <label for="brakes-repair" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Brakes Repair</label>
+                                    </li>
+                                    <li>
+                                        <input type="hidden" value="Engine Diagnostics" name="engine-diagnostics-label">
+                                        <input type="checkbox" data-value="Engine Diagnostics" value="Engine Diagnostics" name="services[]" class="cost-slider-input type-checkbox" id="engine-diagnostics">
+                                        <label for="engine-diagnostics" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Engine Diagnostics</label>
+                                    </li>
+                                </ul>
+                                <ul class="checkboxes-list top-border-none">
+                                    <li>
+                                        <input type="hidden" value="Heating &amp; Cooling" name="heating-cooling-label">
+                                        <input type="checkbox" data-value="Heating & Cooling" value="Heating &amp; Cooling" name="services[]" class="cost-slider-input type-checkbox" id="heating-cooling">
+                                        <label for="heating-cooling" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Heating&amp;Cooling</label>
+                                    </li>
+                                    <li>
+                                        <input type="hidden" value="Oil, Lube &amp; Filters" name="oil-lube-filters-label">
+                                        <input type="checkbox" data-value="Oil, Lube & Filters" value="Oil, Lube &amp; Filters" name="services[]" class="cost-slider-input type-checkbox" id="oil-lube-filters">
+                                        <label for="oil-lube-filters" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Oil, Lube &amp; Filters</label>
+                                    </li>
+                                    <li>
+                                        <input type="hidden" value="Steering &amp; Suspension" name="steering-suspension-label">
+                                        <input type="checkbox" data-value="Steering & Suspension" value="Steering &amp; Suspension" name="services[]" class="cost-slider-input type-checkbox" id="steering-suspension">
+                                        <label for="steering-suspension" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Steering&amp;Suspension</label>
+                                    </li>
+                                </ul>
+                                <ul class="checkboxes-list top-border-none">
+                                    <li>
+                                        <input type="hidden" value="Transmission Repair" name="transmission-repair-label">
+                                        <input type="checkbox" data-value="Transmission Repair" value="Transmission Repair" name="services[]" class="cost-slider-input type-checkbox" id="transmission-repair">
+                                        <label for="transmission-repair" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Transmission Repair</label>
+                                    </li>
+                                    <li>
+                                        <input type="hidden" value="Wheel Alignment" name="wheel-alignment-label">
+                                        <input type="checkbox" data-value="Wheel Alignment" value="Wheel Alignment" name="services[]" class="cost-slider-input type-checkbox" id="wheel-alignment">
+                                        <label for="wheel-alignment" class="checkbox-label template-bullet"><span class="checkbox-box"></span>Wheel Alignment</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                        <fieldset class="column column-1-2">
+                            <label>CONTACT DETAILS</label>
+                            <input class="text-input" name="name" type="text" value="Your Name *"
+                                   placeholder="Your Name *">
+                            <input class="text-input" name="email" type="text" value="Your Email *"
+                                   placeholder="Your Email *">
+                            <input class="text-input" name="phone" type="text" value="Your Phone"
+                                   placeholder="Your Phone">
+                            <textarea class="margin-top-20 text-input" name="message_appointment"
+                                      placeholder="Additional Questions or Comments">Additional Questions or Comments</textarea>
+                            <input type="hidden" name="action" value="contact_form"/>
+                            <input th:action="@{/appointment}" type="hidden" name="form_type" value="appointment">
+                            <div class="row margin-top-30">
+                                <div class="column column-1-2 align-right">
+                                    <button type="submit" class="more submit-contact-form" title="SEND MESSAGE"><span>SEND MESSAGE</span></button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <form th:fragment="~{FragmentForm.html :: footer-and-copyright}"></form>
+</div>
+<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+<div class="background-overlay"></div>
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/jquery.ba-bbq.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-ui-1.12.1.custom.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ui.touch-punch.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.isotope.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.easing.1.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.touchSwipe.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.transit.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.hint.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.costCalculator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.qtip.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.blockUI.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.imagesloaded-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{'https://maps.googleapis.com/maps/api/js?key=AIzaSyDZbvntbc4pL_sGoiAAUTv7EhTgNJLl3Z8'}"></script>
+<script>
+    function initMap() {
+        var location = {lat: 42.704136, lng: 23.305625}
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: location
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+
+<script>
+    $(document).ready(function() {
+        var formSubmitted = false;
+
+        $("#contact-form").on("submit", function(event) {
+            event.preventDefault();
+
+            if (formSubmitted) {
+                return;
+            }
+
+            formSubmitted = true;
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log("Email sent successfully, redirecting...");
+                    window.location.href = "/success-appointment";
+                },
+                error: function() {
+                    console.log("Error occurred while sending the email.");
+                    alert("There was an error processing your request. Please try again.");
+                    formSubmitted = false;
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $(".text-input").on("focus", function() {
+            if ($(this).val() === $(this).attr("placeholder")) {
+                $(this).val("");
+            }
+        });
+
+        $(".text-input").on("blur", function() {
+            if ($(this).val() === "") {
+                $(this).val($(this).attr("placeholder"));
+            }
+        });
+    });
+</script>
+</body>
+</html>

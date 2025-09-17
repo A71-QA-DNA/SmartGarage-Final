@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<form th:replace="~{FragmentForm.html :: head}"></form>
+<body>
+<div class="site-container">
+    <form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+    <form th:replace="~{FragmentForm.html :: header-container}"></form>
+    <div class="theme-page padding-bottom-70">
+        <div class="row gray full-width page-header vertical-align-table">
+            <div class="row full-width padding-top-bottom-50 vertical-align-cell">
+                <div class="row">
+                    <div class="page-header-left">
+                        <h1>MY ORDERS</h1>
+                    </div>
+                    <div class="page-header-right">
+                        <div class="bread-crumb-container">
+                            <label>YOU ARE HERE:</label>
+                            <ul class="bread-crumb">
+                                <li>
+                                    <a title="Home" href="services.html" th:href="@{/}">
+                                        HOME
+                                    </a>
+                                </li>
+                                <li class="separator">
+                                    &#47;
+                                </li>
+                                <li>
+                                    MY ORDERS
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-form-container margin-top-70" style="margin-top: 35px !important;">
+            <div class="custom-form-header">
+                <h2 class="box-header" style="text-align: center; margin-bottom: 35px; font-weight: bold;">
+                    YOU DON'T HAVE ANY ORDERS AT THE MOMENT.</h2>
+            </div>
+
+        </div>
+    </div>
+    <form th:replace="~{FragmentForm.html :: footer-and-copyright}"></form>
+</div>
+<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+<div class="background-overlay"></div>
+<!--js-->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+<!--slider revolution-->
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ba-bbq.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-ui-1.12.1.custom.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.ui.touch-punch.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.isotope.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.easing.1.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.touchSwipe.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.transit.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.hint.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.costCalculator.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.prettyPhoto.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.qtip.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.blockUI.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.imagesloaded-packed.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("Document is ready!");
+
+        $("#repairService").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/client-cars/repairservices",
+                    type: "GET",
+                    data: {
+                        term: request.term
+                    },
+                    success: function (data) {
+                        response(data);
+                    },
+                    error: function (xhr) {
+                        console.error("Autocomplete error: ", xhr);
+                    }
+                });
+            },
+            minLength: 2
+        });
+    });
+</script>
+<script>
+    function editClientCar(carId) {
+        const vinElement = document.querySelector("#vin-" + carId);
+        const licensePlateElement = document.querySelector("#licensePlate-" + carId);
+        const saveButton = document.querySelector("#save-" + carId);
+        const editButton = document.querySelector("#edit-" + carId);
+        const deleteButton = document.querySelector("#delete-" + carId);
+        const addServicesButton = document.querySelector("#add-services-" + carId);
+
+        vinElement.innerHTML = `<input type="text" value="${vinElement.textContent}" id="input-vin-${carId}" style="height: 1px !important;"/>`;
+        licensePlateElement.innerHTML = `<input type="text" value="${licensePlateElement.textContent}" id="input-licensePlate-${carId}" style="height: 1px !important;"/>`;
+
+        saveButton.style.display = 'inline-block';
+        editButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+        addServicesButton.style.display = 'none';
+    }
+
+    function saveClientCar(carId) {
+        const vinValue = document.querySelector("#input-vin-" + carId).value;
+        const licensePlateValue = document.querySelector("#input-licensePlate-" + carId).value;
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = `/client-cars/edit/${carId}`;
+
+        const vinInput = document.createElement('input');
+        vinInput.type = 'hidden';
+        vinInput.name = 'vin';
+        vinInput.value = vinValue;
+        form.appendChild(vinInput);
+
+        const licensePlateInput = document.createElement('input');
+        licensePlateInput.type = 'hidden';
+        licensePlateInput.name = 'license_plate';
+        licensePlateInput.value = licensePlateValue;
+        form.appendChild(licensePlateInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    $(document).ready(function () {
+        $('.delete-service-btn').on('click', function (e) {
+            e.preventDefault();
+
+            let serviceLogId = $(this).data('service-id');
+            let clientCarId = $(this).data('client-car-id');
+
+            $.ajax({
+                url: `/client-cars/${clientCarId}/services/delete`,
+                type: 'POST',
+                data: {serviceLogId: serviceLogId},
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr) {
+                    alert('Error occurred while deleting the service log.');
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this service?");
+    }
+</script>
+
+<script>
+    // Инициализирай datepicker на текстовите полета
+    $(function() {
+        $("#visitedBefore, #visitedAfter").datepicker({
+            dateFormat: 'yy-mm-dd' // Формат за датата
+        });
+    });
+</script>
+
+</body>
+</html>

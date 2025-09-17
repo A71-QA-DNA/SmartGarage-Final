@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<form th:replace="~{FragmentForm.html :: head}"></form>
+<body>
+<div class="site-container">
+    <form th:replace="~{FragmentForm.html :: header-icons-info}"></form>
+    <form th:replace="~{FragmentForm.html :: header-container}"></form>
+    <div class="theme-page padding-bottom-66">
+        <div class="row gray full-width page-header vertical-align-table">
+            <div class="row full-width padding-top-bottom-50 vertical-align-cell">
+                <div class="row">
+                    <div class="page-header-left">
+                        <h1>JOB CENTER</h1>
+                    </div>
+                    <div class="page-header-right">
+                        <div class="bread-crumb-container">
+                            <label>YOU ARE HERE:</label>
+                            <ul class="bread-crumb">
+                                <li>
+                                    JOB CENTER
+                                </li>
+                                <li class="separator">
+                                    &#47;
+                                </li>
+                                <li>
+                                    <a title="HOME" th:href="@{/}">
+                                        HOME
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-70">
+            <div class="column column-3-4">
+                <div class="contact-map" id="map"></div>
+                <div class="row page-margin-top">
+                    <div class="column column-1-3">
+                        <ul class="features-list">
+                            <li>
+                                <h5>CALL US NOW AT</h5>
+                                <div class="icon sl-small-phone-circle"></div>
+                                <p>
+                                    Mobile:(+359) 888 667788<br>
+                                    Assistance:(+359) 888 667799<br>
+                                    Weekdays:(+359) 888 457987
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="column column-1-3">
+                        <ul class="features-list">
+                            <li>
+                                <h5>SOFIA CAR SERVICE</h5>
+                                <div class="icon sl-small-location-map"></div>
+                                <p>
+                                    1324 Sofia, Bulgaria<br>
+                                    256 Tsar Simeon St.<br>
+                                    <a target="_blank"
+                                       href="https://www.google.com/maps/place/42%C2%B042'14.9%22N+23%C2%B018'20.3%22E/@42.704136,23.305625,17z">Display
+                                        on Map</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="column column-1-3">
+                        <ul class="features-list">
+                            <li>
+                                <h5>24/7 ASSISTANCE</h5>
+                                <div class="icon sl-small-truck-tow"></div>
+                                <p>Our 24/7 road assistance provides immediate help anytime, anywhere, so you can drive
+                                    with confidence knowing that support is always just a call away.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 class="box-header page-margin-top">APPLY FOR MECHANIC</h3>
+                <form class="contact-form page-margin-top" id="contact-form" method="post" th:action="@{/contact}" th:object="${contactRequest}" enctype="multipart/form-data" onsubmit="return validateFile()">
+                    <div class="row">
+                        <fieldset class="column column-1-2">
+                            <input class="text-input" name="name" type="text" placeholder="Your Name *" th:field="*{name}" required>
+                            <input class="text-input" name="email" type="email" placeholder="Your Email *" th:field="*{email}" required>
+                            <input class="text-input" name="phone" type="text" placeholder="Your Phone *" th:field="*{phone}" required>
+                            <label for="pdfFile" class="file-upload-button more" style="cursor: pointer; margin-top: 20px; width: 27.5em; padding-top: 7px; padding-bottom: 7px">
+                                <span>UPLOAD CV</span>
+                            </label>
+                            <input id="pdfFile" name="pdfFile" type="file" accept="application/pdf" onchange="showFileName()" style="display: none;">
+                            <p id="file-name"></p>
+                        </fieldset>
+                        <fieldset class="column column-1-2">
+                            <textarea name="message" placeholder="Motivational Letter *" th:field="*{message}" style="border-radius: 4px" required></textarea>
+                            <div class="column column-1-2 align-right" style="margin-left: 0px">
+                                <button type="submit" class="more submit-contact-form" title="SEND MESSAGE" style="margin-top: 19px; width: 28em"><span>SEND MESSAGE</span></button>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="row margin-top-30" style="margin-top: 1px !important;">
+                        <div class="column column-1-2">
+                            <p>You will receive a reply from us between 7-10 working days.</p>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+            </div>
+            <div class="column column-1-4 re-smart-column">
+                <div class="re-smart-column-wrapper">
+                    <div class="call-to-action">
+                        <div class="hexagon small">
+                            <div class="sl-small-percent"></div>
+                        </div>
+                        <h4 class="margin-top-58">ONLINE APPOINTMENT</h4>
+                        <p class="description">Book your appointment now!</p>
+                        <a class="more" th:href="@{/appointment}"
+                           title="MAKE APPOINTMENT"><span>MAKE APPOINTMENT</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form th:replace="~{FragmentForm.html :: footer-and-copyright}"></form>
+</div>
+<a href="#top" class="scroll-top animated-element template-arrow-up" title="Scroll to top"></a>
+<div class="background-overlay"></div>
+<script type="text/javascript" th:src="@{'https://maps.googleapis.com/maps/api/js?key=AIzaSyDZbvntbc4pL_sGoiAAUTv7EhTgNJLl3Z8'}"></script>
+<script>
+    function initMap() {
+        var location = {lat: 42.704136, lng: 23.305625}
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: location
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+<script>
+    function showFileName() {
+        const input = document.querySelector('input[type="file"]');
+        const fileName = input.files[0] ? input.files[0].name : '';
+        document.getElementById('file-name').innerText = `Selected file: ${fileName}`;
+    }
+</script>
+
+<script>
+    function showFileName() {
+        const input = document.getElementById('pdfFile');
+        const fileName = input.files[0] ? input.files[0].name : '';
+        document.getElementById('file-name').innerText = `Selected file: ${fileName}`;
+    }
+
+    function validateFile() {
+        const input = document.getElementById('pdfFile');
+        if (!input.files.length) {
+            alert('Please upload a PDF file.');
+            return false;
+        }
+        const file = input.files[0];
+        if (file.type !== 'application/pdf') {
+            alert('The selected file must be a PDF.');
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
