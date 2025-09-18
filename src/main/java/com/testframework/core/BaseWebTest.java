@@ -24,6 +24,8 @@ public abstract class BaseWebTest {
     protected NavigationSection navigationSection;
     protected MyDetailsPage myDetailsPage;
     protected HomePage homePage;
+    protected VehiclesPage vehiclesPage;
+    protected ClientCarsPage clientCarsPage;
     protected AllUsersPage allUsersPage;
 
     @BeforeEach
@@ -39,6 +41,8 @@ public abstract class BaseWebTest {
         navigationSection = new NavigationSection();
         myDetailsPage = new MyDetailsPage();
         homePage = new HomePage();
+        vehiclesPage = new VehiclesPage();
+        clientCarsPage = new ClientCarsPage();
         allUsersPage = new AllUsersPage();
     }
 
