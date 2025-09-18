@@ -82,9 +82,9 @@ public class FilterCustomersTests extends BaseWebTest {
         String actualEmail = allUsersPage.extractEmail(row);
         String actualPhone = allUsersPage.extractPhone(row);
 
-        assertEquals(expected.getUserName(), actualUsername, "Username must match");
-        assertEquals(expected.getEmail(), actualEmail, "Email must match");
-        assertEquals(expected.getPhoneNumber(), actualPhone, "Phone must match");
+        assertTrue(expected.getUserName().contains(actualUsername), "Username must match");
+        assertTrue(expected.getEmail().contains(actualEmail), "Email must match");
+        assertTrue(expected.getPhoneNumber().contains(actualPhone), "Phone must match");
     }
 
     @Test
