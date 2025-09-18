@@ -42,7 +42,7 @@ public class ServiceApiTests extends BaseApiTest {
 
     private ServiceResponse createService(int price) {
         ServiceRequest req = ServiceRequest.builder()
-                .name(faker.commerce().productName())
+                .name("Service" + System.currentTimeMillis())
                 .price(price)
                 .build();
         ServiceResponse res = api.createNewService(req);
