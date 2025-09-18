@@ -1,6 +1,5 @@
 package api.services;
 
-import com.github.javafaker.Faker;
 import com.smartgarage.api.ServicesApi;
 import com.smartgarage.api.models.ServiceRequest;
 import com.smartgarage.api.models.ServiceResponse;
@@ -12,6 +11,8 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static com.smartgarage.data.TestData.faker;
+
 
 @Epic("Service API")
 @Feature("CRUD & Filtering")
@@ -21,7 +22,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class ServiceApiTests extends BaseApiTest {
 
     private ServicesApi api;
-    private final Faker faker = new Faker();
     private Integer createdId;
     private String createdName;
 

@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static web.vehicles.VehicleTestData.*;
+import static com.smartgarage.data.TestData.*;
 
 @Epic("Vehicles")
 @Feature("Successfully create client car with valid vehicle data")
@@ -39,7 +39,7 @@ public class ClientCarsTests extends BaseWebTest {
 
         clientCarsPage.fillVehicleForm(
                 INVALID_VIN_SHORT,
-                VALID_LICENSE_PLATE,
+                generateVin(17),
                 VALID_OWNER,
                 VALID_MODEL,
                 VALID_ENGINE_TYPE,
@@ -58,7 +58,7 @@ public class ClientCarsTests extends BaseWebTest {
 
         clientCarsPage.fillVehicleForm(
                 INVALID_VIN_LONG,
-                VALID_LICENSE_PLATE,
+                generateRandomLicensePlate(),
                 VALID_OWNER,
                 VALID_MODEL,
                 VALID_ENGINE_TYPE,
@@ -74,7 +74,7 @@ public class ClientCarsTests extends BaseWebTest {
     @ValueSource(strings = {"A1234A", "CB4321B", "INVALID123", "12345"})
     @Story("License plate required when creating a vehicle and must be valid Bulgarian license plate")
     void unsuccessfully_createClientCar_invalidLicensePlate(String invalidPlate) {
-        clientCarsPage.fillVehicleForm(VALID_VIN, invalidPlate, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), invalidPlate, VALID_OWNER,
                 VALID_MODEL, VALID_ENGINE_TYPE, VALID_YEAR);
         clientCarsPage.clickAddClientButton();
 
@@ -87,7 +87,7 @@ public class ClientCarsTests extends BaseWebTest {
     @ValueSource(strings = {"R", "This model name has exactly fifty one characters xx", "This model name is definitely way too long and exceeds fifty characters limit"})
     @Story("Model required when creating a vehicle and must be between 2 and 50 characters")
     void unsuccessfully_createClientCar_invalidModel(String invalidModel) {
-        clientCarsPage.fillVehicleForm(VALID_VIN, VALID_LICENSE_PLATE, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), generateRandomLicensePlate(), VALID_OWNER,
                 invalidModel, VALID_ENGINE_TYPE, VALID_YEAR);
         clientCarsPage.clickAddClientButton();
 
@@ -101,7 +101,7 @@ public class ClientCarsTests extends BaseWebTest {
     @DisplayName("Invalid year of creation")
     @Story("Year of creation required when creating a vehicle and must be a positive whole number larger than 1886")
     void unsuccessfully_createClientCar_invalidYear(String invalidYear) {
-        clientCarsPage.fillVehicleForm(VALID_VIN, VALID_LICENSE_PLATE, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), generateRandomLicensePlate(), VALID_OWNER,
                 VALID_MODEL, VALID_ENGINE_TYPE, invalidYear);
         clientCarsPage.clickAddClientButton();
 
@@ -114,7 +114,7 @@ public class ClientCarsTests extends BaseWebTest {
     @DisplayName("Employee successfully creates a new client car")
     @Story("Employees must be able to create a new vehicle for a customer")
     void successfully_createClientCar_validData() {
-        clientCarsPage.fillVehicleForm(VALID_VIN, VALID_LICENSE_PLATE, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), generateRandomLicensePlate(), VALID_OWNER,
                 VALID_MODEL, VALID_ENGINE_TYPE, VALID_YEAR);
         clientCarsPage.clickAddClientButton();
 
@@ -228,7 +228,7 @@ public class ClientCarsTests extends BaseWebTest {
     @Story("Employees are able to update all customer vehicles")
     void successfully_updateCustomerVehicle() {
         // First create a vehicle to update
-        clientCarsPage.fillVehicleForm(VALID_VIN, VALID_LICENSE_PLATE, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), generateRandomLicensePlate(), VALID_OWNER,
                 VALID_MODEL, VALID_ENGINE_TYPE, VALID_YEAR);
         clientCarsPage.clickAddClientButton();
 
@@ -236,7 +236,7 @@ public class ClientCarsTests extends BaseWebTest {
         clientCarsPage.clickEditButton();
 
         // Update vehicle details
-        clientCarsPage.fillVehicleForm(VALID_VIN, VALID_LICENSE_PLATE, VALID_OWNER,
+        clientCarsPage.fillVehicleForm(generateVin(17), generateRandomLicensePlate(), VALID_OWNER,
                 UPDATED_MODEL, UPDATED_ENGINE_TYPE, UPDATED_YEAR);
         clientCarsPage.clickSaveButton();
 

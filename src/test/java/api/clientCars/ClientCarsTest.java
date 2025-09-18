@@ -1,6 +1,5 @@
 package api.clientCars;
 
-import com.github.javafaker.Faker;
 import com.smartgarage.api.ClientCarsApi;
 import com.smartgarage.api.models.ClientCarRequest;
 import com.smartgarage.api.models.ClientCarResponse;
@@ -11,10 +10,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
+import static com.smartgarage.data.TestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Client Cars API")
@@ -24,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ClientCarsTest extends BaseApiTest {
 
     private ClientCarsApi clientCarsApi;
-    private static final Faker faker = new Faker();
 
     @BeforeEach
 
@@ -43,32 +38,6 @@ public class ClientCarsTest extends BaseApiTest {
                 .build();
     }
 
-    private static String generateVin(int n) {
-        String alphabet = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
-        StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            sb.append(alphabet.charAt(faker.random().nextInt(alphabet.length())));
-        }
-        return sb.toString();
-    }
-
-    public static String generateRandomLicensePlate() {
-        final List<String> REGION_CODES = List.of(
-                "A", "B", "CH", "Y", "TX", "H", "CC", "PP", "T", "P", "BT", "EB", "CT", "X", "K", "CM",
-                "PB", "OB", "EH", "PA", "E", "KH", "PK", "CA", "C", "CB", "CO", "BP", "M", "BH"
-        );
-
-        final char[] VALID_SUFFIX = {
-                'A', 'B', 'E', 'K', 'M', 'H', 'O', 'P', 'C', 'T', 'Y', 'X'
-        };
-
-        final Random RNG = ThreadLocalRandom.current();
-        String region = REGION_CODES.get(RNG.nextInt(REGION_CODES.size()));
-        String number = String.format("%04d", RNG.nextInt(10_000));
-        char first = VALID_SUFFIX[RNG.nextInt(VALID_SUFFIX.length)];
-        char second = VALID_SUFFIX[RNG.nextInt(VALID_SUFFIX.length)];
-        return region + number + first + second;
-    }
 
     @Test
     @Story("Each vehicle must have a license plate, VIN, year of creation, model, and brand.")

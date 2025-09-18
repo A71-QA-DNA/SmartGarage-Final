@@ -1,6 +1,5 @@
 package api.vehicles;
 
-import com.github.javafaker.Faker;
 import com.smartgarage.api.VehicleApi;
 import com.smartgarage.api.models.VehicleRequest;
 import com.smartgarage.api.models.VehicleResponse;
@@ -18,6 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
+import static com.smartgarage.data.TestData.faker;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Vehicle API")
@@ -28,7 +28,6 @@ public class VehiclesApiTests extends BaseApiTest {
 
     private static VehicleApi api;
     private Integer vehicleId;
-    private static final Faker faker = new Faker();
 
     @BeforeAll
     public static void setup() {
