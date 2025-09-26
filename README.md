@@ -1,6 +1,8 @@
 # SmartGarage QA Automation (Java, JUnit 5, Selenium, REST Assured)
 
-End‑to‑end and API test suite for the **SmartGarage** application. The project mixes **web UI (Selenium 4)** and **REST API (REST Assured 5)** tests, organized with **JUnit 5** and reported with **Allure 2**. Tests are consistently tagged so you can run only API, only UI, or everything in one command.
+End‑to‑end and API test suite for the **SmartGarage** application. The project mixes **web UI (Selenium 4)** and **REST
+API (REST Assured 5)** tests, organized with **JUnit 5** and reported with **Allure 2**. Tests are consistently tagged
+so you can run only API, only UI, or everything in one command.
 
 ---
 
@@ -14,7 +16,8 @@ End‑to‑end and API test suite for the **SmartGarage** application. The proje
 - Gson, Lombok, Faker
 - (Optional) MariaDB JDBC for DB utilities
 
-> Allure Maven & JUnit 5 are configured in the POM, including the Allure plugin and Surefire provider. Allure results are written under `target/allure-results` (see `src/test/resources/allure.properties`).
+> Allure Maven & JUnit 5 are configured in the POM, including the Allure plugin and Surefire provider. Allure results
+> are written under `target/allure-results` (see `src/test/resources/allure.properties`).
 
 ---
 
@@ -38,6 +41,7 @@ src/
 ```
 
 Key base classes:
+
 - `com.testframework.core.BaseApiTest` — common REST Assured setup & Allure filter.
 - `com.testframework.core.BaseWebTest` — WebDriver lifecycle and page initialization.
 - `com.testframework.core.BaseApiService` & `RequestSpecFactory` — base URI and Basic Auth from config.
@@ -49,8 +53,11 @@ Key base classes:
 Before you start, make sure you have the following installed:
 
 - [Docker](https://docs.docker.com/get-docker/) (for running the SmartGarage app + DB)
-- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-0-13-later-archive-downloads.html) (runtime + compiler)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-0-13-later-archive-downloads.html) (runtime +
+  compiler)
+- [Maven](https://maven.apache.org/install.html) (for building the project)
 - [Allure CLI](https://allurereport.org/docs/install/) (for test reporting)
+
 1) **Install Allure CLI** (one‑time):
 
 - macOS (Homebrew):
@@ -60,23 +67,30 @@ Before you start, make sure you have the following installed:
   ```
 
 - Other OS options: see an Allure installation guide. (https://allurereport.org/docs/install/)
-> Once these are set up, you can build & run the app via Docker, run tests with Maven, and generate **Allure reports** for results visualization.
+
+> Once these are set up, you can build & run the app via Docker, run tests with Maven, and generate **Allure reports**
+> for results visualization.
 
 ---
 
 ## Run the SmartGarage app locally (Docker)
 
 This repo includes the application source so you can spin it up in Docker and then run the tests against it.
+
 ### Folder layout (place these at the **repo root**)
+
 ```
 /app                 # SmartGarage app (Docker build context)
 /database            # MariaDB init & Dockerfile (build context)
 /setup-docker/
    docker-compose.yml
 ```
-> The provided `docker-compose.yml` (under `setup-docker/`) builds the two services using relative paths `../app` and `../database`, so keep this structure exactly.
+
+> The provided `docker-compose.yml` (under `setup-docker/`) builds the two services using relative paths `../app` and
+`../database`, so keep this structure exactly.
 
 ### Start the stack
+
 ```bash
 # Build & run
 cd setup-docker
@@ -90,6 +104,7 @@ cd ..
 - MariaDB: localhost:3307 (container port 3306 is mapped to host 3307)
 
 Check status and logs:
+
 ```bash
 
 docker compose ps
@@ -98,6 +113,7 @@ docker compose logs -f mariadb
 ```
 
 Stop & clean:
+
 ```bash
 
 docker compose down           # stop
@@ -133,7 +149,8 @@ mvn clean test -DexcludedGroups=system
 mvn clean test -Dgroups=integration -DexcludedGroups=services-api
 ```
 
-> Maven Surefire’s JUnit Platform provider maps JUnit 5 **tags** to the **`groups`** and **`excludedGroups`** CLI properties, and also supports tag expressions. See the official docs.
+> Maven Surefire’s JUnit Platform provider maps JUnit 5 **tags** to the **`groups`** and **`excludedGroups`** CLI
+> properties, and also supports tag expressions. See the official docs.
 
 ---
 
@@ -154,11 +171,14 @@ mvn clean test -Dgroups=system allure:serve
 # Generate static report (no temp server)
 mvn clean test allure:report
 ```
+
 Allure Maven plugin basics and goals are documented here.
 
-> Allure results are generated to `target/allure-results`, and `allure:serve` spins up a temporary web server with the HTML report.
+> Allure results are generated to `target/allure-results`, and `allure:serve` spins up a temporary web server with the
+> HTML report.
 
 ### Allure annotations you’ll see in code
+
 - `@Epic`, `@Feature`, (optionally `@Story`, `@Severity`, etc.) to organize the report’s **Behaviors** tree.
 
 ---
@@ -176,7 +196,8 @@ browserMode=NORMAL # NORMAL | HEADLESS
 defaultTimeoutSeconds=10
 ```
 
-- **API base URL & credentials** are read by `RequestSpecFactory` and applied to every API request (Basic auth, JSON content type).
+- **API base URL & credentials** are read by `RequestSpecFactory` and applied to every API request (Basic auth, JSON
+  content type).
 - **Browser** is configured by `DriverManager` using `browserType` and `browserMode` (e.g., headless CI runs).
 
 > Java 17 and the Allure + Surefire + Compiler plugins are pinned in the POM.
@@ -207,9 +228,12 @@ mvn allure:report
 ## Troubleshooting
 
 - **No tests run / 0 tests found**: verify your tag filters (e.g., did you pass `-Dgroups` that excludes all?).
-- **Allure report doesn’t open**: ensure the **Allure CLI** is installed and on PATH; check that `target/allure-results` exists after a test run.
-- **WebDriver errors**: confirm `browserType`, `browserMode`, and that a compatible browser is installed on the machine/agent.
-- **Wrong base URL / 401**: update `smartGarageUrl` and credentials in `config.properties` (used by `RequestSpecFactory`).
+- **Allure report doesn’t open**: ensure the **Allure CLI** is installed and on PATH; check that `target/allure-results`
+  exists after a test run.
+- **WebDriver errors**: confirm `browserType`, `browserMode`, and that a compatible browser is installed on the
+  machine/agent.
+- **Wrong base URL / 401**: update `smartGarageUrl` and credentials in `config.properties` (used by
+  `RequestSpecFactory`).
 
 ---
 
