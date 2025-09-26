@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("CRUD & Validation")
 @Tag("integration")
 @Tag("client-cars-api")
-public class ClientCarsTest extends BaseApiTest {
+public class ClientCarsTests extends BaseApiTest {
 
     private ClientCarsApi clientCarsApi;
 
@@ -32,9 +32,9 @@ public class ClientCarsTest extends BaseApiTest {
                 .vin(generateVin(17))
                 .licensePlate(generateRandomLicensePlate())
                 .brandName("Audi")
-                .modelName(faker.name().firstName())
+                .modelName("Model " +System.currentTimeMillis())
                 .year(2020)
-                .engineType("Petrol")
+                .engineType("Type " + System.currentTimeMillis())
                 .build();
     }
 
